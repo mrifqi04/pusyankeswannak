@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Backend\ScheduleController;
+use App\Http\Controllers\Backend\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +21,11 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('timeline-penerimaan', [HomeController::class, 'timeline'])->name('timeline');
 Route::get('persyaratan-umum', [HomeController::class, 'persyaratan'])->name('persyaratan');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function() {
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
+    Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
+});
+
 
 require __DIR__.'/auth.php';

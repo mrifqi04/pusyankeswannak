@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Timeline;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Time;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,9 @@ class HomeController extends Controller
 
     public function timeline()
     {
-        return view('front.timeline_penerimaan');
+        $timelines = Timeline::all();
+
+        return view('front.timeline_penerimaan', compact('timelines'));
     }
 
     public function persyaratan()

@@ -14,36 +14,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Pengumuman dan Pembukaan Lamaran</td>
-                        <td>07 Desember 2021</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Tahap 1 Seleksi Berkas</td>
-                        <td>09 - 13 Desember 2021</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Tahap 2 Ujian Tertulis</td>
-                        <td>15 - 19 Desember 2021</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Tahap 3 Wawancara</td>
-                        <td>22 - 25 Desember 2021</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Tahap 4 Ujian Praktek (Khusus Petugas Kesehatan Satwa)</td>
-                        <td>25 - 30 Desember 2021</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Negoisasi dan Penutupan</td>
-                        <td>02 Januari 2022</td>
-                    </tr>
+                    @foreach ($timelines as $key => $timeline)
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $timeline->timeline_name }}</td>
+                            <td class="text-center">
+                                @if ($timeline->timeline_start && $timeline->timeline_end)
+                                    <span>{{ date('d M Y', strtotime($timeline->timeline_start)) }} <span class="text-muted"><b>/</b></span> {{ date('d M Y', strtotime($timeline->timeline_end)) }}</span>
+                                @else
+                                    <span>Tidak ada Jadwal</span>
+                                @endif
+                            </td>
+                        </tr>                        
+                    @endforeach
                 </tbody>
             </table>
         </div>
