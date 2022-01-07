@@ -28,6 +28,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>    
+
+    
+    @yield('css')
+
     <title>Halaman Admin</title>
 </head>
 
@@ -46,8 +59,9 @@
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                     <li><a class="dropdown-item" href="daftar-akun-admin.php">Buat Akun</a></li>
                     <form action="{{ route('logout') }}" method="post">
-                        @csrf                        
-                        <li style="cursor: pointer" class="dropdown-item" onclick="event.preventDefault(); this.closest('form').submit();">Keluar</li>
+                        @csrf
+                        <li style="cursor: pointer" class="dropdown-item"
+                            onclick="event.preventDefault(); this.closest('form').submit();">Keluar</li>
                     </form>
                 </ul>
             </text>
@@ -62,7 +76,9 @@
                         <div class="d-flex flex-column flex-shrink-0 p-2 bg-light" style="width: 240px">
                             <ul class="nav nav-pills flex-column mb-auto">
                                 <li class="nav-item">
-                                    <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : 'text-dark' }}" aria-current="page">
+                                    <a href="/dashboard"
+                                        class="nav-link {{ Request::is('dashboard') ? 'active' : 'text-dark' }}"
+                                        aria-current="page">
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#dashboard" />
                                         </svg>
@@ -70,7 +86,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="admin-data-pelamar.php" class="nav-link link-dark">
+                                    <a href="{{ route('data-pelamar') }}" class="nav-link link-dark {{ Request::is('data-pelamar') ? 'active' : 'text-dark' }}">
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="admin-data-pelamar.php" />
                                         </svg>
@@ -105,9 +121,10 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link link-dark dropdown-toggle {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}" id="adminDropdownMenuLink"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                        aria-current="page">
+                                    <a href="#"
+                                        class="nav-link link-dark dropdown-toggle {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"
+                                        id="adminDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false" aria-current="page">
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#" />
                                         </svg>
@@ -118,7 +135,8 @@
                                         <li><a class="dropdown-item" href="admin-log-activity.php">Log Activity</a></li>
                                         <li><a class="dropdown-item" href="admin-input-nilai-min.php">Input Nilai
                                                 Minimal</a></li>
-                                        <li><a class="dropdown-item  {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}" href="{{ route('admin-timeline') }}">Update Jadwal</a></li>
+                                        <li><a class="dropdown-item  {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"
+                                                href="{{ route('admin-timeline') }}">Update Jadwal</a></li>
                                         <li><a class="dropdown-item" href="admin-update-posisi.php">Update Jumlah
                                                 Posisi</a></li>
                                     </ul>
@@ -209,6 +227,11 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script> --}}
+
 
     @yield('script')
 </body>

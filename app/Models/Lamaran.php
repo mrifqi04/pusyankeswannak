@@ -21,6 +21,27 @@ class Lamaran extends Model
         'tanggal_skck',
         'bank',
         'rekening',
-        'surat_sehat'
+        'surat_sehat',
+        'status'
     ];
+
+    function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    function job()
+    {
+        return $this->hasOne(Job::class, 'id', 'job_id');
+    }
+
+    function address()
+    {
+        return $this->hasOne(Address::class, 'lamaran_id', 'id');
+    }
+
+    function file()
+    {
+        return $this->hasOne(File::class, 'lamaran_id', 'id');
+    }
 }
