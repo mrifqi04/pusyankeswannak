@@ -38,7 +38,7 @@
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>    
 
-    
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('css')
 
     <title>Halaman Admin</title>
@@ -94,7 +94,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link link-dark dropdown-toggle" id="adminDropdownMenuLink"
+                                    <a href="#" class="nav-link link-dark dropdown-toggle {{ Request::is('input-tes-tertulis') ? 'active' : 'text-dark' }}" id="adminDropdownMenuLink"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                         aria-current="page">
                                         <svg class="bi me-2" width="16" height="16">
@@ -104,7 +104,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                                         aria-labelledby="adminDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="admin-tes-tulis-grade.php">Nilai Ujian
+                                        <li><a class="dropdown-item {{ Request::is('input-tes-tertulis') ? 'active' : 'text-dark' }}" href="{{ route('input-tes-tertulis') }}">Nilai Ujian
                                                 Tertulis</a></li>
                                         <li><a class="dropdown-item" href="admin-wawancara-grade.php">Nilai
                                                 Wawancara</a></li>
@@ -231,7 +231,15 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script> --}}
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers:
+                { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+        })
+    </script>
 
     @yield('script')
 </body>

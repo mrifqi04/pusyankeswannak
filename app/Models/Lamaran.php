@@ -44,4 +44,9 @@ class Lamaran extends Model
     {
         return $this->hasOne(File::class, 'lamaran_id', 'id');
     }
+
+    function nilai()
+    {
+        return $this->hasOne(Nilai::class, 'lamaran_id', 'id');
+    }
 }

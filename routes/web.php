@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\ScheduleController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PelamarController;
+use App\Http\Controllers\Backend\InputTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function() {
     Route::get('detail-pelamar/{id}', [PelamarController::class, 'detail'])->name('detail-pelamar');
     Route::post('accept-pelamar/{id}', [PelamarController::class, 'accept'])->name('accept-pelamar');
     Route::post('reject-pelamar/{id}', [PelamarController::class, 'reject'])->name('reject-pelamar');
+
+    Route::get('input-tes-tertulis', [InputTestController::class, 'inputTestTertulis'])->name('input-tes-tertulis');
+    Route::post('input-tes-tertulis', [InputTestController::class, 'storeTestTertulis'])->name('store-tes-tertulis');
 
     // user
     Route::get('form-pendaftaran-pelamar/{id}', [HomeController::class, 'formPendaftaran'])->name('form-pendaftaran');

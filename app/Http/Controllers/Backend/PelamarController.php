@@ -23,9 +23,7 @@ class PelamarController extends Controller
         ->with('job')
         ->with('address')
         ->with('file')
-        ->first();
-
-        // dd($lamaran);
+        ->first();        
 
         return view('backend.detail-pelamar', compact('lamaran'));
     }
