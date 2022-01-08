@@ -73,10 +73,11 @@ class InputTestController extends Controller
     {
         $lamaran = Lamaran::with('user')
         ->with('job')        
-        ->with('nilai')        
+        ->with('nilai')
+        ->where('job_id', 3)        
         ->get();
         
-        return view('backend.test_wawancara.input_test_wawancara', compact('lamaran'));
+        return view('backend.test_praktik.input_test_praktik', compact('lamaran'));
     }
 
     public function storeTestPraktik(Request $request)
@@ -88,12 +89,12 @@ class InputTestController extends Controller
 
         if ($lamaran) {
             // dd($nilai);
-            $lamaran->wawancara = $nilai;
+            $lamaran->praktik = $nilai;
             $lamaran->save();
         } else {
             Nilai::create([
                 'lamaran_id' => $id,
-                'wawancara' => $nilai
+                'praktik' => $nilai
             ]);
         }
     }
