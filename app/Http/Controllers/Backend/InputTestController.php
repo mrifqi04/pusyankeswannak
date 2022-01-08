@@ -39,4 +39,62 @@ class InputTestController extends Controller
             ]);
         }
     }
+
+    public function inputTestWawancara()
+    {
+        $lamaran = Lamaran::with('user')
+        ->with('job')        
+        ->with('nilai')        
+        ->get();
+        
+        return view('backend.test_wawancara.input_test_wawancara', compact('lamaran'));
+    }
+
+    public function storeTestWawancara(Request $request)
+    {        
+        $nilai = $request->data;
+        $id = $request->id;
+
+        $lamaran = Nilai::where('lamaran_id', $id)->first();
+
+        if ($lamaran) {
+            // dd($nilai);
+            $lamaran->wawancara = $nilai;
+            $lamaran->save();
+        } else {
+            Nilai::create([
+                'lamaran_id' => $id,
+                'wawancara' => $nilai
+            ]);
+        }
+    }
+
+    public function inputTestPraktik()
+    {
+        $lamaran = Lamaran::with('user')
+        ->with('job')        
+        ->with('nilai')        
+        ->get();
+        
+        return view('backend.test_wawancara.input_test_wawancara', compact('lamaran'));
+    }
+
+    public function storeTestPraktik(Request $request)
+    {        
+        $nilai = $request->data;
+        $id = $request->id;
+
+        $lamaran = Nilai::where('lamaran_id', $id)->first();
+
+        if ($lamaran) {
+            // dd($nilai);
+            $lamaran->wawancara = $nilai;
+            $lamaran->save();
+        } else {
+            Nilai::create([
+                'lamaran_id' => $id,
+                'wawancara' => $nilai
+            ]);
+        }
+    }
 }

@@ -94,7 +94,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link link-dark dropdown-toggle {{ Request::is('input-tes-tertulis') ? 'active' : 'text-dark' }}" id="adminDropdownMenuLink"
+                                    <a href="#" class="nav-link link-dark dropdown-toggle {{ Request::is('input-tes-tertulis') || Request::is('input-tes-wawancara')  ? 'active' : 'text-dark' }}" id="adminDropdownMenuLink"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false"
                                         aria-current="page">
                                         <svg class="bi me-2" width="16" height="16">
@@ -106,7 +106,7 @@
                                         aria-labelledby="adminDropdownMenuLink">
                                         <li><a class="dropdown-item {{ Request::is('input-tes-tertulis') ? 'active' : 'text-dark' }}" href="{{ route('input-tes-tertulis') }}">Nilai Ujian
                                                 Tertulis</a></li>
-                                        <li><a class="dropdown-item" href="admin-wawancara-grade.php">Nilai
+                                        <li><a class="dropdown-item {{ Request::is('input-tes-wawancara') ? 'active' : 'text-dark' }}" href="{{ route('input-tes-wawancara') }}">Nilai
                                                 Wawancara</a></li>
                                         <li><a class="dropdown-item" href="admin-praktek-grade.php">Nilai Praktek</a>
                                         </li>

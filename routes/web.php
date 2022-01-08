@@ -42,6 +42,12 @@ Route::middleware('auth')->group(function() {
     Route::get('input-tes-tertulis', [InputTestController::class, 'inputTestTertulis'])->name('input-tes-tertulis');
     Route::post('input-tes-tertulis', [InputTestController::class, 'storeTestTertulis'])->name('store-tes-tertulis');
 
+    Route::get('input-tes-wawancara', [InputTestController::class, 'inputTestWawancara'])->name('input-tes-wawancara');
+    Route::post('input-tes-wawancara', [InputTestController::class, 'storeTestWawancara'])->name('store-tes-wawancara');
+
+    Route::get('input-tes-praktik', [InputTestController::class, 'inputTestPraktik'])->name('input-tes-praktik');
+    Route::post('input-tes-praktik', [InputTestController::class, 'storeTestPraktik'])->name('store-tes-praktik');
+
     // user
     Route::get('form-pendaftaran-pelamar/{id}', [HomeController::class, 'formPendaftaran'])->name('form-pendaftaran');
     Route::post('form-pendaftaran-pelamar', [HomeController::class, 'storePendaftaran'])->name('store-pendaftaran');    
