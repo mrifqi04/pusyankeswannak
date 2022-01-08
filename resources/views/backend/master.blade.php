@@ -113,7 +113,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="admin-cetak-laporan.php" class="nav-link link-dark">
+                                    <a href="{{ route('cetak-laporan') }}" class="nav-link link-dark {{ Request::is('cetak-laporan')  ? 'active' : 'text-dark' }}">
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="admin-cetak-laporan.php" />
                                         </svg>

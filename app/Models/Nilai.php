@@ -15,4 +15,9 @@ class Nilai extends Model
         'wawancara',
         'praktik'
     ];
+
+    function lamaran()
+    {
+        return $this->hasOne(Lamaran::class, 'id', 'lamaran_id');
+    }
 }

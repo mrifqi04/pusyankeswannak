@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\ScheduleController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PelamarController;
 use App\Http\Controllers\Backend\InputTestController;
+use App\Http\Controllers\Backend\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,14 @@ Route::get('daftar-akun-pelamar', [AuthController::class, 'userRegister'])->name
 Route::post('daftar-akun-pelamar', [AuthController::class, 'storeRegister'])->name('store-register');
 
 Route::middleware('auth')->group(function() {
-    // admin
+    // ADMIN
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
     Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
+    
+    // cetak laporan index
+    Route::get('cetak-laporan', [LaporanController::class, 'index'])->name('cetak-laporan');
+    Route::post('export-laporan', [LaporanController::class, 'export'])->name('export-laporan');
 
     Route::get('data-pelamar', [PelamarController::class, 'index'])->name('data-pelamar');
     Route::get('detail-pelamar/{id}', [PelamarController::class, 'detail'])->name('detail-pelamar');
