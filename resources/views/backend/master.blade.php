@@ -122,7 +122,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a href="#"
-                                        class="nav-link link-dark dropdown-toggle {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"
+                                        class="nav-link link-dark dropdown-toggle {{ Request::is('admin-schedule') || Request::is('input-nilai-min')  || Request::is('update-kuota-posisi') ? 'active' : 'text-dark' }}"
                                         id="adminDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false" aria-current="page">
                                         <svg class="bi me-2" width="16" height="16">
@@ -133,11 +133,11 @@
                                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                                         aria-labelledby="adminDropdownMenuLink">
                                         <li><a class="dropdown-item" href="admin-log-activity.php">Log Activity</a></li>
-                                        <li><a class="dropdown-item" href="admin-input-nilai-min.php">Input Nilai
+                                        <li><a class="dropdown-item {{ Request::is('input-nilai-min') ? 'active' : 'text-dark' }}" href="{{ route('input-nilai-minimal') }}">Input Nilai
                                                 Minimal</a></li>
-                                        <li><a class="dropdown-item  {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"
+                                        <li><a class="dropdown-item {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"
                                                 href="{{ route('admin-timeline') }}">Update Jadwal</a></li>
-                                        <li><a class="dropdown-item" href="admin-update-posisi.php">Update Jumlah
+                                        <li><a class="dropdown-item" href="{{ route('update-kuota-posisi') }}">Update Jumlah
                                                 Posisi</a></li>
                                     </ul>
                                 </li>

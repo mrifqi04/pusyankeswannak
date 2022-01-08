@@ -44,6 +44,14 @@ Route::middleware('auth')->group(function() {
     Route::post('accept-pelamar/{id}', [PelamarController::class, 'accept'])->name('accept-pelamar');
     Route::post('reject-pelamar/{id}', [PelamarController::class, 'reject'])->name('reject-pelamar');
 
+    // input nilai minimal
+    Route::get('input-nilai-min', [InputTestController::class, 'inputMinNilai'])->name('input-nilai-minimal');
+    Route::post('input-nilai-min', [InputTestController::class, 'storeMinNilai'])->name('store-nilai-minimal');
+
+    // update jumlah kuota posisi
+    Route::get('update-kuota-posisi', [InputTestController::class, 'inputKuotaPosisi'])->name('update-kuota-posisi');
+    Route::post('store-kuota-posisi', [InputTestController::class, 'storeKuotaPosisi'])->name('store-kuota-posisi');
+
     Route::get('input-tes-tertulis', [InputTestController::class, 'inputTestTertulis'])->name('input-tes-tertulis');
     Route::post('input-tes-tertulis', [InputTestController::class, 'storeTestTertulis'])->name('store-tes-tertulis');
 

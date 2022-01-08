@@ -7,7 +7,9 @@ use App\Models\Lamaran;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Job;
 use App\Models\Nilai;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InputTestController extends Controller
 {
@@ -97,5 +99,50 @@ class InputTestController extends Controller
                 'praktik' => $nilai
             ]);
         }
+    }
+
+    public function inputMinNilai()
+    {
+        $jobs = Job::all();
+
+        return view('backend.input_min_nilai', compact('jobs'));
+    }
+
+    public function storeMinNilai(Request $request)
+    {        
+        $id = $request->job;
+        $test = $request->test;
+        $nilai = $request->nilai;
+
+        $job = Job::find($id);
+        $job->update([
+            $test => $nilai
+        ]);
+
+        Alert::success('Berhasil', 'Nilai berhasil di update');
+
+        return redirect('/input-nilai-min');
+    }
+
+    public function inputKuotaPosisi()
+    {
+        $jobs = Job::all();
+
+        return view('backend.update_kuota_posisi', compact('jobs'));
+    }
+
+    public function storeKuotaPosisi(Request $request)
+    {        
+        $id = $request->job;        
+        $kuota = $request->kuota;
+
+        $job = Job::find($id);
+        $job->update([
+            'kuota' => $kuota
+        ]);
+
+        Alert::success('Berhasil', 'Kuota berhasil di update');
+
+        return redirect('/update-kuota-poissi');
     }
 }
