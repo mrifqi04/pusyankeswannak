@@ -45,10 +45,7 @@ class HomeController extends Controller
         $lamaran = Lamaran::create([
             'user_id' => Auth::user()->id,
             'job_id' => $request->posisi,
-            'no_kk' => $request->no_kk,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'no_hp' => $request->no_hp,
+            'no_kk' => $request->no_kk,            
             'pendidikan' => $request->pendidikan,
             'npwp' => $request->npwp,
             'tanggal_skck' => $request->tanggal_skck,

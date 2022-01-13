@@ -80,15 +80,15 @@
             <div class="form-group mb-4">
                 <label for="input-no-hp">JENIS KELAMIN</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin1"
-                        value="Laki-laki" />
+                    <input class="form-check-input" type="radio" id="jenis_kelamin1"
+                        value="L" {{ Auth::user()->jenis_kelamin == 'L' ? 'checked' : 'disabled' }} />
                     <label class="form-check-label" for="jenis_kelamin1">
                         Laki-laki
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin2"
-                        value="Perempuan" />
+                    <input class="form-check-input" type="radio" id="jenis_kelamin2"
+                        value="Perempuan"  {{ Auth::user()->jenis_kelamin == 'P' ? 'checked' : 'disabled' }} />
                     <label class="form-check-label" for="jenis_kelamin2">
                         Perempuan
                     </label>
@@ -97,12 +97,12 @@
 
             <div class="form-group mb-4 col-md-4">
                 <label for="input-tanggal-lahir">TANGGAL LAHIR</label>
-                <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir" value="" />
+                <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir" value="{{ date('Y-m-d', strtotime(Auth::user()->tanggal_lahir)) }}" readonly />
             </div>
 
             <div class="form-group mb-4">
                 <label for="input-no-hp">NO. HP</label>
-                <input name="no_hp" type="text" class="form-control" id="no-hp" placeholder="" />
+                <input name="no_hp" type="text" class="form-control" id="no-hp" placeholder="" value="{{ Auth::user()->no_hp }}" readonly />
             </div>
 
             <label for="input-pendidikan" class="form-label">PENDIDIKAN TERAKHIR</label>
