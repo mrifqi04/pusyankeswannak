@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PelamarController;
 use App\Http\Controllers\Backend\InputTestController;
 use App\Http\Controllers\Backend\LaporanController;
+use App\Http\Controllers\ProfileController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,8 @@ Route::get('daftar-akun-pelamar', [AuthController::class, 'userRegister'])->name
 Route::post('daftar-akun-pelamar', [AuthController::class, 'storeRegister'])->name('store-register');
 
 Route::middleware('auth')->group(function() {
-    // ADMIN
+
+    // ========= ADMIN ============
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
     Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
@@ -61,9 +64,14 @@ Route::middleware('auth')->group(function() {
     Route::get('input-tes-praktik', [InputTestController::class, 'inputTestPraktik'])->name('input-tes-praktik');
     Route::post('input-tes-praktik', [InputTestController::class, 'storeTestPraktik'])->name('store-tes-praktik');
 
-    // user
+
+    // ============ USER =============
     Route::get('form-pendaftaran-pelamar/{id}', [HomeController::class, 'formPendaftaran'])->name('form-pendaftaran');
-    Route::post('form-pendaftaran-pelamar', [HomeController::class, 'storePendaftaran'])->name('store-pendaftaran');    
+    Route::post('form-pendaftaran-pelamar', [HomeController::class, 'storePendaftaran'])->name('store-pendaftaran');
+    
+    // profile user
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('profile/{id}', [ProfileController::class, 'update'])->name('update-profile');
 });
 
 
