@@ -613,13 +613,19 @@
                     Halo, PELAMAR! </a>
 
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                    <li><a class="dropdown-item" href="profile.php">Profil</a></li>
-                    <li><a class="dropdown-item" href="beranda.php">Keluar</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="dropdown-item" type="submit">Keluar</but>
+                        </form>
+                    </li>
+
                 </ul>
             </text>
             @else
             <div class="col-md-3 text-end">
-                <a href="masuk-akun-pelamar.php">
+                <a href="{{ route('user-login') }}">
                     <button type="button" class="btn btn-outline-primary me-2">MASUK</button>
                 </a>
 

@@ -26,10 +26,15 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('timeline-penerimaan', [HomeController::class, 'timeline'])->name('timeline');
 Route::get('persyaratan-umum', [HomeController::class, 'persyaratan'])->name('persyaratan');
-Route::get('masuk-akun-pelamar', [AuthController::class, 'userLogin'])->name('user-login');
 
-Route::get('daftar-akun-pelamar', [AuthController::class, 'userRegister'])->name('user-register');
-Route::post('daftar-akun-pelamar', [AuthController::class, 'storeRegister'])->name('store-register');
+Route::middleware('guest')->group(function() {
+    Route::get('masuk-akun-pelamar', [AuthController::class, 'userLogin'])->name('user-login');
+    Route::post('masuk-akun-pelamar', [AuthController::class, 'storeLogin'])->name('user-login');
+    
+    Route::get('daftar-akun-pelamar', [AuthController::class, 'userRegister'])->name('user-register');
+    Route::post('daftar-akun-pelamar', [AuthController::class, 'storeRegister'])->name('store-register');
+});
+
 
 Route::middleware('auth')->group(function() {
 

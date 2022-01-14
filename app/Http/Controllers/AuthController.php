@@ -13,6 +13,27 @@ class AuthController extends Controller
         return view('front.masuk_akun_pelamar');
     }
 
+    public function storeLogin(Request $request)
+    {
+        try {
+            // Validasi Input
+            $request -> validate([
+                'nik' => 'required',
+                'password' => 'required'
+            ]);
+
+            $credentials = $request->only('nik', 'password');
+
+            if (Auth::attempt($credentials)) {
+                // Authentication passed...
+                return redirect('/');
+            }
+
+        } catch (Exception $error) {
+            return redirect()->back();
+        }
+    }
+
     public function userRegister()
     {
         return view('front.daftar_akun_pelamar');
