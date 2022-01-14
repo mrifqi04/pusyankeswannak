@@ -44,6 +44,11 @@ class PelamarController extends Controller
             'status' => 'LULUS'
         ]);
 
+        Nilai::create([
+            'lamaran_id' => $accept->id,
+            'berkas' => 'Lulus',            
+        ]);
+
         Alert::success('Diterima', 'Pelamar berhasil diterima');
         
         return redirect('data-pelamar');
@@ -61,6 +66,11 @@ class PelamarController extends Controller
             'step' => 'STEP 1',
             'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'GAGAL'
+        ]);
+
+        Nilai::create([
+            'lamaran_id' => $reject->id,
+            'berkas' => 'Gagal',            
         ]);
 
         Alert::success('Ditolak', 'Pelamar berhasil ditolak');

@@ -170,23 +170,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 divider text-center">
-                <div class="col-xs-12 col-sm-4 emphasis">
-                    <h2><strong> {{ $lamaran->job->nama_pekerjaan }} </strong></h2>
-                    <form action="{{ route('accept-pelamar', $lamaran->id) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-success btn-block mt-3">Accept
-                        </button>
-                    </form>
-                </div>
-                <div class="col-xs-12 col-sm-4 emphasis">
-                    <form action="{{ route('reject-pelamar', $lamaran->id) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-block mt-3">Reject
-                        </button>
-                    </form>
-                </div>              
-            </div>
+            <h2><strong> {{ $lamaran->job->nama_pekerjaan }} </strong></h2>
+            @if ($lamaran->status == 'Proses')
+                <div class="col-xs-12 divider text-center">
+                    <div class="col-xs-12 col-sm-4 emphasis">
+                        <form action="{{ route('accept-pelamar', $lamaran->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-block mt-3">Accept
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 emphasis">
+                        <form action="{{ route('reject-pelamar', $lamaran->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-block mt-3">Reject
+                            </button>
+                        </form>
+                    </div>              
+                </div>                
+            @endif
         </div>
 
         <div class="col-md-12">                        

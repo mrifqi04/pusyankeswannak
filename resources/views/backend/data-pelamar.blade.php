@@ -26,7 +26,7 @@
                         <tbody>
                             @foreach ($lamaran as $key => $dl)
                             <tr>
-                                <td>{{ $key+1 }}</td>
+                                <td>Peserta-{{ $dl->id }}</td>
                                 <td>{{ $dl->user->name }}</td>
                                 <td>{{ $dl->job->nama_pekerjaan }}</td>
                                 <td>{{ $dl->status }}</td>

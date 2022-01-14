@@ -133,6 +133,11 @@ class HomeController extends Controller
             'status' => 'PROSES'
         ]);
 
+        Nilai::create([
+            'lamaran_id' => $lamaran->id,
+            'berkas' => 'Proses',            
+        ]);
+
         Alert::success('Terkirim', 'Lamaran mu berhasil terikirim');
 
         return redirect('/');

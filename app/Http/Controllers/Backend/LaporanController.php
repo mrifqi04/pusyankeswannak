@@ -29,6 +29,8 @@ class LaporanController extends Controller
             return Excel::download(new Lamaran($step), $time . '_Data_Step_2.xlsx');
         } else if ($step == 3) {
             return Excel::download(new Lamaran($step), $time . '_Data_Step_3.xlsx');
+        } else if ($step == 4) {
+            return Excel::download(new Lamaran($step), $time . '_Data_Step_4.xlsx');
         } else {
             return Excel::download(new Lamaran($step), $time . '_Data_Semua_Pelamar.xlsx');
         }

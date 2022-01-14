@@ -34,6 +34,7 @@ class Lamaran implements ShouldAutoSize, WithMapping, FromCollection, WithHeadin
             $lamaran->lamaran->rekening,
             $lamaran->lamaran->surat_sehat,
             date('Y-m-d', strtotime($lamaran->lamaran->created_at)),
+            $lamaran->berkas,
             $lamaran->ujian_tertulis,
             $lamaran->wawancara,
             $lamaran->praktik,
@@ -45,10 +46,12 @@ class Lamaran implements ShouldAutoSize, WithMapping, FromCollection, WithHeadin
         $step = $this->step;
 
         if ($step == 1) {
-            return Nilai::where('ujian_tertulis', '!=', null)->get();
+            return Nilai::where('berkas', 'Lulus')->get();
         } else if ($step == 2) {
-            return Nilai::where('wawancara', '!=', null)->get();
+            return Nilai::where('ujian_tertulis', '!=', null)->get();
         } else if ($step == 3) {
+            return Nilai::where('wawancara', '!=', null)->get();
+        } else if ($step == 4) {
             return Nilai::where('praktik', '!=', null)->get();
         } else if ($step == 'all') {
             return Nilai::all();
@@ -74,6 +77,7 @@ class Lamaran implements ShouldAutoSize, WithMapping, FromCollection, WithHeadin
             'No Rekening',
             'Surat Sehat',
             'Lamaran Dibuat',
+            "Berkas",
             "Nilai Ujian Tertulis",
             "Nilai Wawancara",
             "Nilai Ujian Praktik",

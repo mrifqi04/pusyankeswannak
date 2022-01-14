@@ -19,6 +19,7 @@
                             <option value="1">Data Pelamar Tahap 1</option>
                             <option value="2">Data Pelamar Tahap 2</option>
                             <option value="3">Data Pelamar Tahap 3</option>
+                            <option value="4">Data Pelamar Tahap 4</option>
                         </select>
                         <div class="invalid-feedback">Pilih salah satu jawaban.</div>
                     </div>
