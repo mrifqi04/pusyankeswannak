@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Status;
 use App\Models\Lamaran;
 use Illuminate\Http\Request;
+use Auth;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PelamarController extends Controller
@@ -34,6 +36,13 @@ class PelamarController extends Controller
 
         $accept->update(['status' => 'Accepted']);
 
+        $status = Status::create([
+            'lamaran_id' => $accept->id,
+            'user_id' => $accept->user_id,
+            'step' => 'STEP 1',
+            'status' => 'LULUS'
+        ]);
+
         Alert::success('Diterima', 'Pelamar berhasil diterima');
         
         return redirect('data-pelamar');
@@ -44,6 +53,13 @@ class PelamarController extends Controller
         $reject = Lamaran::find($id);
 
         $reject->update(['status' => 'Rejected']);
+
+        $status = Status::create([
+            'lamaran_id' => $reject->id,
+            'user_id' => $reject->user_id,
+            'step' => 'STEP 1',
+            'status' => 'GAGAL'
+        ]);
 
         Alert::success('Ditolak', 'Pelamar berhasil ditolak');
         

@@ -7,10 +7,10 @@
             <button class="nav-link active" id="data-pribadi-tab" data-bs-toggle="tab" data-bs-target="#data-pribadi"
                 type="button" role="tab" aria-controls="data-pribadi" aria-selected="true">Data Pribadi</button>
         </li>
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="unggah-berkas-tab" data-bs-toggle="tab" data-bs-target="#unggah-berkas"
                 type="button" role="tab" aria-controls="profile" aria-selected="false">Unggah Berkas</button>
-        </li>
+        </li> --}}
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="detail-status-tab" data-bs-toggle="tab" data-bs-target="#detail-status"
                 type="button" role="tab" aria-controls="contact" aria-selected="false">Detail Status</button>
@@ -37,11 +37,14 @@
                             image.src = URL.createObjectURL(event.target.files[0]);
                         };
                         </script>
-                    </div>
+                    </div>                   
 
                     <div class="form-group mb-4 mt-4 col-md-6">
                         <label for="status" class="form-label">STATUS</label>
-                        <input type="text" id="nik" class="form-control" placeholder="" readonly value="">
+
+                        @foreach ($status as $ds)
+                            <input type="text" id="nik" class="form-control" placeholder="" readonly value="{{ $ds->step }} - {{ $ds->status }}">                            
+                        @endforeach
                     </div>
 
                     <div class="form-group mb-4">

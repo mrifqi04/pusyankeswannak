@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Nilai extends Model
+class Status extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'lamaran_id',
-        'ujian_tertulis',
-        'wawancara',
-        'praktik',        
+        'user_id',
+        'step',
+        'status'
     ];
-
-    function lamaran()
-    {
-        return $this->hasOne(Lamaran::class, 'id', 'lamaran_id');
-    }
 }

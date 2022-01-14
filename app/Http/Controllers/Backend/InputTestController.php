@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Job;
+
+
+use App\Models\Nilai;
+use App\Models\Status;
 use App\Models\Lamaran;
-
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Job;
-use App\Models\Nilai;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class InputTestController extends Controller
@@ -16,8 +17,8 @@ class InputTestController extends Controller
     public function inputTestTertulis()
     {
         $lamaran = Lamaran::with('user')
-        ->with('job')        
-        ->with('nilai')        
+        ->with(['job', 'nilai'])        
+        ->where('status', 'Accepted')        
         ->get();
         
         return view('backend.test_tertulis.input_test_tertulis', compact('lamaran'));
@@ -27,17 +28,42 @@ class InputTestController extends Controller
     {        
         $nilai = $request->data;
         $id = $request->id;
+        $findlamar = Lamaran::find($id);
+        
+        $id_job = $findlamar->job_id;
+        $job = Job::find($id_job);
 
+        $min_nilai = $job->minimum_tertulis;
+        
         $lamaran = Nilai::where('lamaran_id', $id)->first();
 
-        if ($lamaran) {
-            // dd($nilai);
+
+        if ($lamaran) {            
             $lamaran->ujian_tertulis = $nilai;
             $lamaran->save();
+
+            if ($nilai >= $min_nilai) {
+                Status::where('STEP', 'STEP 2')->update(['status' => 'LULUS']);
+            } else if ($nilai < $min_nilai) {
+                Status::where('STEP', 'STEP 2')->update(['status' => 'GAGAL']);
+            }
         } else {
             Nilai::create([
                 'lamaran_id' => $id,
                 'ujian_tertulis' => $nilai
+            ]);
+
+            if ($nilai >= $min_nilai) {
+                $status = 'LULUS';                
+            } else if ($nilai < $min_nilai) {                
+                $status = 'GAGAL';
+            }
+            
+            Status::create([
+                'lamaran_id' => $id,
+                'user_id' => $findlamar->user_id,
+                'step' => 'STEP 2',
+                'status' => $status
             ]);
         }
     }

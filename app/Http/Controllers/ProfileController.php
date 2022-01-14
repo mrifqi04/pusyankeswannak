@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lamaran;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
-use File;
+use Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('front.profile');
+        $user_id = Auth::user()->id;
+
+        $lamaran = Lamaran::where('user_id', $user_id)
+        ->with(['nilai', 'job'])
+        ->first();
+
+        $status = Status::where('user_id', $user_id)->get();
+
+        return view('front.profile', compact('lamaran', 'status'));
     }
 
     public function update(Request $request, $id)

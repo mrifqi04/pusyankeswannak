@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\File;
 use App\Models\Job;
 use App\Models\Lamaran;
+use App\Models\Status;
 use App\Models\Timeline;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Type\Time;
@@ -52,6 +53,7 @@ class HomeController extends Controller
             'bank' => $request->bank,
             'rekening' => $request->rekening,
             'surat_sehat' => $request->surat_sehat,
+            'status' => 'Proses'
         ]);
 
         $address = Address::create([
@@ -122,6 +124,13 @@ class HomeController extends Controller
         $file_sertifikat->move('file_pelamar/', $file_sertifikat_name);
         $file_lamaran->move('file_pelamar/', $file_lamaran_name);
         $file_cv->move('file_pelamar/', $file_cv_name);        
+
+        $status = Status::create([
+            'lamaran_id' => $lamaran->id,
+            'user_id' => Auth::user()->id,
+            'step' => 'STEP 1',
+            'status' => 'PROSES'
+        ]);
 
         Alert::success('Terkirim', 'Lamaran mu berhasil terikirim');
 
