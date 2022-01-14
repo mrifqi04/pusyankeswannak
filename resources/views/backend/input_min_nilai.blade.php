@@ -27,8 +27,8 @@
                         <select class="form-select" aria-label="select example" required name="job">
                             <option value="">Pilih...</option>
                             @foreach ($jobs as $job)
-                                <option value="{{ $job->id }}">{{ $job->nama_pekerjaan }}</option>                                
-                            @endforeach                            
+                            <option value="{{ $job->id }}">{{ $job->nama_pekerjaan }}</option>
+                            @endforeach
                         </select>
                         <div class="invalid-feedback">Pilih salah satu jawaban.</div>
                     </div>
@@ -57,22 +57,24 @@
                 </thead>
                 <tbody>
                     @foreach ($jobs as $job)
-                        <tr>
-                            <td rowspan="4">{{ $job->nama_pekerjaan }}</td>                            
-                        </tr>
-                        <tr>
-                            <td>Nilai Ujian Tertulis</td>                            
-                            <td>{{ $job->minimum_tertulis }}</td>                            
-                        </tr>                        
-                        <tr>
-                            <td>Nilai Ujian Wawancara</td>                            
-                            <td>{{ $job->minimum_wawancara }}</td>                            
-                        </tr>                        
-                        <tr>
-                            <td>Nilai Ujian Praktik</td>                            
-                            <td>{{ $job->minimum_praktik }}</td>                            
-                        </tr>                        
-                    @endforeach                    
+                    <tr>
+                        <td rowspan="{{ $job->id == 3 ? '4' : '3' }}">{{ $job->nama_pekerjaan }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Ujian Tertulis</td>
+                        <td>{{ $job->minimum_tertulis }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Ujian Wawancara</td>
+                        <td>{{ $job->minimum_wawancara }}</td>
+                    </tr>
+                    @if ($job->id == 3)
+                    <tr>
+                        <td>Nilai Ujian Praktik</td>
+                        <td>{{ $job->minimum_praktik }}</td>
+                    </tr>
+                    @endif
+                    @endforeach
                 </tbody>
             </table>
 
