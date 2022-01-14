@@ -36,10 +36,11 @@ class PelamarController extends Controller
 
         $accept->update(['status' => 'Accepted']);
 
-        $status = Status::create([
+        Status::create([
             'lamaran_id' => $accept->id,
             'user_id' => $accept->user_id,
             'step' => 'STEP 1',
+            'ket' => 'PENYORTIRAN BERKAS',            
             'status' => 'LULUS'
         ]);
 
@@ -54,10 +55,11 @@ class PelamarController extends Controller
 
         $reject->update(['status' => 'Rejected']);
 
-        $status = Status::create([
+        Status::create([
             'lamaran_id' => $reject->id,
             'user_id' => $reject->user_id,
             'step' => 'STEP 1',
+            'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'GAGAL'
         ]);
 

@@ -38,6 +38,9 @@ Route::middleware('guest')->group(function() {
 
 Route::middleware('auth')->group(function() {
 
+    // Route::middleware('admin')->group(function() {
+        
+    // });
     // ========= ADMIN ============
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');

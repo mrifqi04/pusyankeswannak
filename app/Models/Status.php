@@ -13,6 +13,7 @@ class Status extends Model
         'lamaran_id',
         'user_id',
         'step',
-        'status'
+        'status',
+        'ket'
     ];
 }

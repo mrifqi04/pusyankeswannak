@@ -125,10 +125,11 @@ class HomeController extends Controller
         $file_lamaran->move('file_pelamar/', $file_lamaran_name);
         $file_cv->move('file_pelamar/', $file_cv_name);        
 
-        $status = Status::create([
+        Status::create([
             'lamaran_id' => $lamaran->id,
             'user_id' => Auth::user()->id,
             'step' => 'STEP 1',
+            'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'PROSES'
         ]);
 
