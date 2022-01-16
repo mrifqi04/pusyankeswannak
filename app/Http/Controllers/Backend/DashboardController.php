@@ -56,4 +56,11 @@ class DashboardController extends Controller
 
         return view('backend.admin-activity-log', compact('logs'));
     }
+
+    public function statistik()
+    {
+        $data = Lamaran::getStatistic();
+
+        return response()->json($data);
+    }
 }

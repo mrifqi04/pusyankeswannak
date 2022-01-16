@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function() {
     Route::get('admin-activity-log', [DashboardController::class, 'logs'])->name('logs');
     Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
     Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
+    Route::post('statistik-pelamar', [DashboardController::class, 'statistik'])->name('statistik');
     
     // cetak laporan index
     Route::get('cetak-laporan', [LaporanController::class, 'index'])->name('cetak-laporan');
