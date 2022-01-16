@@ -49,6 +49,7 @@ class PelamarController extends Controller
         Nilai::create([
             'lamaran_id' => $accept->id,
             'berkas' => 'Lulus',
+            'job_id' => $accept->job_id
         ]);
 
         Log::create([
@@ -78,6 +79,7 @@ class PelamarController extends Controller
         Nilai::create([
             'lamaran_id' => $reject->id,
             'berkas' => 'Gagal',
+            'job_id' => $reject->job_id
         ]);
 
         Log::create([

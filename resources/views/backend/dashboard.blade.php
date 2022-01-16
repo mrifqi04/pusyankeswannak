@@ -19,51 +19,51 @@
                 <div class="container row row-cols-4 row-cols-md-4 g-6 mb-2">
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Keamanan Kantor</p>
-                        <h3 id="average-tkk">0</h3>
+                        <h3 class="average" data-id="12">{{$average_tkk }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Kebersihan Kantor</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_tkbk }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas Kesehatan Satwa</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_pks }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Laboratorium</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_tl }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Teknis Perawat Satwa</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{ $average_ttps }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas IPAL</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_ipal }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas Keurmaster</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_pk }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Mekanik dan Listrik</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_tmdl }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas Customer Relation</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{ $average_pcr }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas Informasi</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_pi }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Petugas Penerima Tamu</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_ppt }}</h3>
                     </div>
                     <div class="border p-3 bg-light text-center">
                         <p class="fw-bold">Tenaga Supir</p>
-                        <h3 id="average-">0</h3>
+                        <h3 class="average">{{$average_ts }}</h3>
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@
                                 <thead>
                                     <tr>
                                         <th>TIMESTAMP</th>
-                                        <th>NAMA</th>                                
+                                        <th>NAMA</th>
                                         <th>AKTIVITAS</th>
                                     </tr>
                                 </thead>
@@ -87,7 +87,7 @@
                                     <tr>
                                         <td>{{ $log->created_at }}</td>
                                         <td>{{ $log->user->name }}</td>
-                                        <td>{{ $log->aktifitas }}</td>                                
+                                        <td>{{ $log->aktifitas }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
