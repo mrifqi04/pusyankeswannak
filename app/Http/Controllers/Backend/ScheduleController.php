@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Alert;
+use Auth;
+use App\Models\Log;
 use App\Models\Timeline;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Alert;
 
 class ScheduleController extends Controller
 {
@@ -23,6 +25,11 @@ class ScheduleController extends Controller
         $data = $request->all();
                 
         $timeline->update($data);  
+        
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Mengupdate jadwal " . $timeline->timeline_name . ' - ' . date('d M Y', strtotime($request->timeline_start)) . ' / ' . date('d M Y', strtotime($request->timeline_end))
+        ]);
         
         Alert::success('Berhasil ditambahkan');
 

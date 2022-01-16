@@ -132,7 +132,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end"
                                         aria-labelledby="adminDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="admin-log-activity.php">Log Activity</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('logs') }}">Log Activity</a></li>
                                         <li><a class="dropdown-item {{ Request::is('input-nilai-min') ? 'active' : 'text-dark' }}" href="{{ route('input-nilai-minimal') }}">Input Nilai
                                                 Minimal</a></li>
                                         <li><a class="dropdown-item {{ Request::is('admin-schedule') ? 'active' : 'text-dark' }}"

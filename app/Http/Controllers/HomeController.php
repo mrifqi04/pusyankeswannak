@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use App\Models\File;
-use App\Models\Job;
-use App\Models\Lamaran;
-use App\Models\Status;
-use App\Models\Timeline;
-use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Time;
-use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+use App\Models\Job;
+use App\Models\File;
+use App\Models\User;
+use App\Models\Nilai;
+use App\Models\Status;
+use App\Models\Address;
+use App\Models\Lamaran;
+use App\Models\Timeline;
+use Ramsey\Uuid\Type\Time;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -42,11 +44,12 @@ class HomeController extends Controller
     }
 
     public function storePendaftaran(Request $request)
-    {    
+    {            
+        $user_id = Auth::user()->id;
         $lamaran = Lamaran::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $user_id,
             'job_id' => $request->posisi,
-            'no_kk' => $request->no_kk,            
+            'no_kk' => $request->no_kk,                        
             'pendidikan' => $request->pendidikan,
             'npwp' => $request->npwp,
             'tanggal_skck' => $request->tanggal_skck,
@@ -55,6 +58,14 @@ class HomeController extends Controller
             'surat_sehat' => $request->surat_sehat,
             'status' => 'Proses'
         ]);
+
+        $user = User::find($user_id);
+        $user->update([
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'no_hp' => $request->no_hp,            
+        ]);
+
 
         $address = Address::create([
             'lamaran_id' => $lamaran->id,

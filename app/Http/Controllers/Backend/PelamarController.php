@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Auth;
+use App\Models\Log;
+use App\Models\Nilai;
 use App\Models\Status;
 use App\Models\Lamaran;
 use Illuminate\Http\Request;
-use Auth;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,11 +23,11 @@ class PelamarController extends Controller
     public function detail($id)
     {
         $lamaran = Lamaran::where('id', $id)
-        ->with('user')
-        ->with('job')
-        ->with('address')
-        ->with('file')
-        ->first();        
+            ->with('user')
+            ->with('job')
+            ->with('address')
+            ->with('file')
+            ->first();
 
         return view('backend.detail-pelamar', compact('lamaran'));
     }
@@ -36,21 +38,26 @@ class PelamarController extends Controller
 
         $accept->update(['status' => 'Accepted']);
 
-        Status::create([
+        $status = Status::create([
             'lamaran_id' => $accept->id,
             'user_id' => $accept->user_id,
             'step' => 'STEP 1',
-            'ket' => 'PENYORTIRAN BERKAS',            
+            'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'LULUS'
         ]);
 
         Nilai::create([
             'lamaran_id' => $accept->id,
-            'berkas' => 'Lulus',            
+            'berkas' => 'Lulus',
+        ]);
+
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Menerima berkas Peserta-" . $accept->id
         ]);
 
         Alert::success('Diterima', 'Pelamar berhasil diterima');
-        
+
         return redirect('data-pelamar');
     }
 
@@ -60,7 +67,7 @@ class PelamarController extends Controller
 
         $reject->update(['status' => 'Rejected']);
 
-        Status::create([
+        $status = Status::create([
             'lamaran_id' => $reject->id,
             'user_id' => $reject->user_id,
             'step' => 'STEP 1',
@@ -70,11 +77,16 @@ class PelamarController extends Controller
 
         Nilai::create([
             'lamaran_id' => $reject->id,
-            'berkas' => 'Gagal',            
+            'berkas' => 'Gagal',
+        ]);
+
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Menolak berkas Peserta-" . $reject->id
         ]);
 
         Alert::success('Ditolak', 'Pelamar berhasil ditolak');
-        
+
         return redirect('data-pelamar');
     }
 }

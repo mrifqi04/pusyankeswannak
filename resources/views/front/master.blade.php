@@ -629,7 +629,7 @@
                     <button type="button" class="btn btn-outline-primary me-2">MASUK</button>
                 </a>
 
-                <a href="daftar-akun-pelamar.php">
+                <a href="{{ route('user-register') }}">
                     <button type="button" class="btn btn-primary">DAFTAR</button>
                 </a>
             </div>

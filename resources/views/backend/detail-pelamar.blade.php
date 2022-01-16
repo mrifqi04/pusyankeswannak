@@ -97,18 +97,18 @@
                     <h4>No KK : {{ $lamaran->no_kk }}</h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="mb-3" id="about">
+                            <div class="mb-3 mt-5" id="about">
                                 <p><strong>About: </strong> <br>
                                 <table>
                                     <tr>
                                         <td>Tanggal lahir</td>
                                         <td>:</td>
-                                        <td>{{ $lamaran->tanggal_lahir }}</td>
+                                        <td>{{ date('d M Y', strtotime($lamaran->user->tanggal_lahir)) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Jenis Kelamin</td>
                                         <td>:</td>
-                                        <td>{{ $lamaran->jenis_kelamin }}</td>
+                                        <td>{{ $lamaran->user->jenis_kelamin == 'L' ?  "Laki-laki" : 'Perempuan' }}</td>
                                     </tr>
                                     <tr>
                                         <td>Pendidikan</td>
@@ -129,7 +129,7 @@
                                     <tr>
                                         <td>Nomer HP</td>
                                         <td>:</td>
-                                        <td>{{ $lamaran->no_hp }}</td>
+                                        <td>{{ $lamaran->user->no_hp }}</td>
                                     </tr>
                                     <tr>
                                         <td>Tanggal aktif SKCK</td>
@@ -144,7 +144,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-5">
                             <div class="mb-3" id="about">
                                 <p><strong>Address: </strong> <br>
                                 <table>

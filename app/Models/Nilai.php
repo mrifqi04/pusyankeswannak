@@ -13,7 +13,8 @@ class Nilai extends Model
         'lamaran_id',
         'ujian_tertulis',
         'wawancara',
-        'praktik',        
+        'praktik',
+        'berkas'   
     ];
 
     function lamaran()

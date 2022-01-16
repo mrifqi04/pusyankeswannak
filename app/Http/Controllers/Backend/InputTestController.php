@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Job;
 
-
+use Auth;
+use App\Models\Log;
 use App\Models\Nilai;
 use App\Models\Status;
 use App\Models\Lamaran;
@@ -30,30 +31,25 @@ class InputTestController extends Controller
         $nilai = $request->data;
         $id = $request->id;
         $findlamar = Lamaran::find($id);
-
         $id_job = $findlamar->job_id;
         $job = Job::find($id_job);
-
         $min_nilai = $job->minimum_tertulis;
-
         $lamaran = Nilai::where('lamaran_id', $id)->first();
-
         $step_nilai = $lamaran->ujian_tertulis;
-
-        if ($step_nilai == null) {
+        
+        if (!$step_nilai) {
             if ($nilai >= $min_nilai) {
                 $status = 'LULUS';
             } else if ($nilai < $min_nilai) {
                 $status = 'GAGAL';
-            }
-
+            }                    
             Status::create([
                 'lamaran_id' => $id,
                 'user_id' => $findlamar->user_id,
                 'step' => 'STEP 2',
                 'ket' => 'UJIAN TERTULIS',
                 'status' => $status
-            ]);
+            ]);            
         } else {
             if ($nilai >= $min_nilai) {
                 Status::where('STEP', 'STEP 2')->update(['status' => 'LULUS']);
@@ -62,15 +58,13 @@ class InputTestController extends Controller
             }
         }
 
-        if ($lamaran) {
-            $lamaran->ujian_tertulis = $nilai;
-            $lamaran->save();
-        } else {
-            Nilai::create([
-                'lamaran_id' => $id,
-                'ujian_tertulis' => $nilai
-            ]);
-        }
+        $lamaran->ujian_tertulis = $nilai;
+        $lamaran->save();
+
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Meninput nilai tes tertulis Peserta-" . $findlamar->id
+        ]);
     }
 
     public function inputTestWawancara()
@@ -89,21 +83,16 @@ class InputTestController extends Controller
     {
         $nilai = $request->data;
         $id = $request->id;
-
         $findlamar = Lamaran::find($id);
-
         $id_job = $findlamar->job_id;
         $job = Job::find($id_job);
-
         $lamaran = Nilai::where('lamaran_id', $id)->first();
-
         $min_nilai = $job->minimum_wawancara;
         $step_nilai = $lamaran->wawancara;
-
         $get_kuota = Lamaran::where('job_id', $job->id)->get();
         $kuota = count($get_kuota);
 
-        if ($step_nilai == null) {
+        if (!$step_nilai) {
             if ($nilai >= $min_nilai) {
                 $status = 'LULUS';
             } else if ($nilai < $min_nilai) {
@@ -119,36 +108,23 @@ class InputTestController extends Controller
             ]);
         } else {
             if ($nilai >= $min_nilai) {
-                Status::where('STEP', 'STEP 3')->update(['status' => 'LULUS']);
-                if ($findlamar->job_id != 3 && $kuota <= $job->kuota) {
-                    $findlamar->update(['status' => 'Lulus']);
-                } else {
-                    $findlamar->update(['status' => 'Gagal']);
-                }
+                Status::where('STEP', 'STEP 3')->update(['status' => 'LULUS']);                
             } else if ($nilai < $min_nilai) {
                 Status::where('STEP', 'STEP 3')->update(['status' => 'GAGAL']);
             }
         }
 
-        if ($lamaran) {
-            $lamaran->wawancara = $nilai;
-            $lamaran->save();
-        } else {
-            Nilai::create([
-                'lamaran_id' => $id,
-                'wawancara' => $nilai
-            ]);
+        if ($findlamar->job_id != 3 && $kuota <= $job->kuota) {
+            $findlamar->update(['status' => 'Lulus']);
         }
 
-        if ($lamaran) {
-            $lamaran->wawancara = $nilai;
-            $lamaran->save();
-        } else {
-            Nilai::create([
-                'lamaran_id' => $id,
-                'wawancara' => $nilai
-            ]);
-        }
+        $lamaran->wawancara = $nilai;
+        $lamaran->save();
+
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Meninput nilai tes wawancara Peserta-" . $findlamar->id
+        ]);
     }
 
     public function inputTestPraktik()
@@ -174,13 +150,13 @@ class InputTestController extends Controller
 
         $id_job = $findlamar->job_id;
         $job = Job::find($id_job);
-        $min_nilai = $job->minimum_wawancara;
-        $step_nilai = $lamaran->wawancara;
+        $min_nilai = $job->minimum_praktik;
+        $step_nilai = $lamaran->praktik;
 
         $get_kuota = Lamaran::where('job_id', $job->id)->get();
         $kuota = count($get_kuota);
-
-        if ($step_nilai == null) {
+        
+        if (!$step_nilai) {
             if ($nilai >= $min_nilai) {
                 $status = 'LULUS';
             } else if ($nilai < $min_nilai) {
@@ -190,32 +166,31 @@ class InputTestController extends Controller
             Status::create([
                 'lamaran_id' => $id,
                 'user_id' => $findlamar->user_id,
-                'step' => 'STEP 3',
-                'ket' => 'UJIAN WAWANCARA',
+                'step' => 'STEP 4',
+                'ket' => 'UJIAN PRAKTIK',
                 'status' => $status
             ]);
         } else {
             if ($nilai >= $min_nilai) {
-                Status::where('STEP', 'STEP 3')->update(['status' => 'LULUS']);
-                if ($findlamar->job_id != 3 && $kuota <= $job->kuota) {
-                    $findlamar->update(['status' => 'Lulus']);
-                } else {
-                    $findlamar->update(['status' => 'Gagal']);
-                }
+                Status::where('STEP', 'STEP 4')->update(['status' => 'LULUS']);                
             } else if ($nilai < $min_nilai) {
-                Status::where('STEP', 'STEP 3')->update(['status' => 'GAGAL']);
+                Status::where('STEP', 'STEP 4')->update(['status' => 'GAGAL']);
             }
         }
 
-        if ($lamaran) {
-            $lamaran->praktik = $nilai;
-            $lamaran->save();
+        if ($kuota <= $job->kuota) {
+            $findlamar->update(['status' => 'Lulus']);
         } else {
-            Nilai::create([
-                'lamaran_id' => $id,
-                'praktik' => $nilai
-            ]);
+            $findlamar->update(['status' => 'Gagal']);
         }
+
+        $lamaran->praktik = $nilai;
+        $lamaran->save();
+
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Meninput nilai tes praktik Peserta-" . $findlamar->id
+        ]);
     }
 
     public function inputMinNilai()
@@ -258,8 +233,13 @@ class InputTestController extends Controller
             'kuota' => $kuota
         ]);
 
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => 'Mengupdate jumlah kuota ' . $job->nama_pekerjaan . ' - ' . $job->kuota
+        ]);
+
         Alert::success('Berhasil', 'Kuota berhasil di update');
 
-        return redirect('/update-kuota-poissi');
+        return redirect('/update-kuota-posisi');
     }
 }

@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function() {
     // });
     // ========= ADMIN ============
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('admin-activity-log', [DashboardController::class, 'logs'])->name('logs');
     Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
     Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
     

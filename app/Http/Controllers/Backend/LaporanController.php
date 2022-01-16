@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Exports\Lamaran;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Log;
+use App\Exports\Lamaran;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LaporanController extends Controller
@@ -23,6 +25,11 @@ class LaporanController extends Controller
 
         $step = $request->step;
         
+        Log::create([
+            'admin_id' => Auth::user()->id,
+            'aktifitas' => "Mencetak data laporan tahap-" . $step
+        ]);
+
         if ($step == 1) {
             return Excel::download(new Lamaran($step), $time . '_Data_Step_1.xlsx');
         } else if ($step == 2) {
@@ -33,6 +40,6 @@ class LaporanController extends Controller
             return Excel::download(new Lamaran($step), $time . '_Data_Step_4.xlsx');
         } else {
             return Excel::download(new Lamaran($step), $time . '_Data_Semua_Pelamar.xlsx');
-        }
+        }        
     }
 }
