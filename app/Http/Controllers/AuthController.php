@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         try {
             // Validasi Input
-            $request -> validate([
+            $request->validate([
                 'nik' => 'required',
                 'password' => 'required'
             ]);
@@ -26,9 +26,14 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 // Authentication passed...
-                return redirect('/');
+                if (Auth::user()->role_id == 1) {
+                    return redirect('/dashboard');
+                } else {
+                    return redirect('/');
+                }
+            } else {
+                return redirect()->back();
             }
-
         } catch (Exception $error) {
             return redirect()->back();
         }

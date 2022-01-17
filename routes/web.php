@@ -27,62 +27,59 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('timeline-penerimaan', [HomeController::class, 'timeline'])->name('timeline');
 Route::get('persyaratan-umum', [HomeController::class, 'persyaratan'])->name('persyaratan');
 
-Route::middleware('guest')->group(function() {
+Route::middleware('guest')->group(function () {
     Route::get('masuk-akun-pelamar', [AuthController::class, 'userLogin'])->name('user-login');
     Route::post('masuk-akun-pelamar', [AuthController::class, 'storeLogin'])->name('user-login');
-    
+
     Route::get('daftar-akun-pelamar', [AuthController::class, 'userRegister'])->name('user-register');
     Route::post('daftar-akun-pelamar', [AuthController::class, 'storeRegister'])->name('store-register');
 });
 
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
+    Route::middleware('admin')->group(function () {
+        // ========= ADMIN ============
+        Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('admin-activity-log', [DashboardController::class, 'logs'])->name('logs');
+        Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
+        Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
+        Route::post('statistik-pelamar', [DashboardController::class, 'statistik'])->name('statistik');
 
-    // Route::middleware('admin')->group(function() {
-        
-    // });
-    // ========= ADMIN ============
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('admin-activity-log', [DashboardController::class, 'logs'])->name('logs');
-    Route::get('admin-schedule', [ScheduleController::class, 'index'])->name('admin-timeline');
-    Route::post('set-schedule/{id}', [ScheduleController::class, 'setSchedule'])->name('set-schedule');
-    Route::post('statistik-pelamar', [DashboardController::class, 'statistik'])->name('statistik');
-    
-    // cetak laporan index
-    Route::get('cetak-laporan', [LaporanController::class, 'index'])->name('cetak-laporan');
-    Route::post('export-laporan', [LaporanController::class, 'export'])->name('export-laporan');
+        // cetak laporan index
+        Route::get('cetak-laporan', [LaporanController::class, 'index'])->name('cetak-laporan');
+        Route::post('export-laporan', [LaporanController::class, 'export'])->name('export-laporan');
 
-    Route::get('data-pelamar', [PelamarController::class, 'index'])->name('data-pelamar');
-    Route::get('detail-pelamar/{id}', [PelamarController::class, 'detail'])->name('detail-pelamar');
-    Route::post('accept-pelamar/{id}', [PelamarController::class, 'accept'])->name('accept-pelamar');
-    Route::post('reject-pelamar/{id}', [PelamarController::class, 'reject'])->name('reject-pelamar');
+        Route::get('data-pelamar', [PelamarController::class, 'index'])->name('data-pelamar');
+        Route::get('detail-pelamar/{id}', [PelamarController::class, 'detail'])->name('detail-pelamar');
+        Route::post('accept-pelamar/{id}', [PelamarController::class, 'accept'])->name('accept-pelamar');
+        Route::post('reject-pelamar/{id}', [PelamarController::class, 'reject'])->name('reject-pelamar');
 
-    // input nilai minimal
-    Route::get('input-nilai-min', [InputTestController::class, 'inputMinNilai'])->name('input-nilai-minimal');
-    Route::post('input-nilai-min', [InputTestController::class, 'storeMinNilai'])->name('store-nilai-minimal');
+        // input nilai minimal
+        Route::get('input-nilai-min', [InputTestController::class, 'inputMinNilai'])->name('input-nilai-minimal');
+        Route::post('input-nilai-min', [InputTestController::class, 'storeMinNilai'])->name('store-nilai-minimal');
 
-    // update jumlah kuota posisi
-    Route::get('update-kuota-posisi', [InputTestController::class, 'inputKuotaPosisi'])->name('update-kuota-posisi');
-    Route::post('store-kuota-posisi', [InputTestController::class, 'storeKuotaPosisi'])->name('store-kuota-posisi');
+        // update jumlah kuota posisi
+        Route::get('update-kuota-posisi', [InputTestController::class, 'inputKuotaPosisi'])->name('update-kuota-posisi');
+        Route::post('store-kuota-posisi', [InputTestController::class, 'storeKuotaPosisi'])->name('store-kuota-posisi');
 
-    Route::get('input-tes-tertulis', [InputTestController::class, 'inputTestTertulis'])->name('input-tes-tertulis');
-    Route::post('input-tes-tertulis', [InputTestController::class, 'storeTestTertulis'])->name('store-tes-tertulis');
+        Route::get('input-tes-tertulis', [InputTestController::class, 'inputTestTertulis'])->name('input-tes-tertulis');
+        Route::post('input-tes-tertulis', [InputTestController::class, 'storeTestTertulis'])->name('store-tes-tertulis');
 
-    Route::get('input-tes-wawancara', [InputTestController::class, 'inputTestWawancara'])->name('input-tes-wawancara');
-    Route::post('input-tes-wawancara', [InputTestController::class, 'storeTestWawancara'])->name('store-tes-wawancara');
+        Route::get('input-tes-wawancara', [InputTestController::class, 'inputTestWawancara'])->name('input-tes-wawancara');
+        Route::post('input-tes-wawancara', [InputTestController::class, 'storeTestWawancara'])->name('store-tes-wawancara');
 
-    Route::get('input-tes-praktik', [InputTestController::class, 'inputTestPraktik'])->name('input-tes-praktik');
-    Route::post('input-tes-praktik', [InputTestController::class, 'storeTestPraktik'])->name('store-tes-praktik');
-
+        Route::get('input-tes-praktik', [InputTestController::class, 'inputTestPraktik'])->name('input-tes-praktik');
+        Route::post('input-tes-praktik', [InputTestController::class, 'storeTestPraktik'])->name('store-tes-praktik');
+    });
 
     // ============ USER =============
     Route::get('form-pendaftaran-pelamar/{id}', [HomeController::class, 'formPendaftaran'])->name('form-pendaftaran');
     Route::post('form-pendaftaran-pelamar', [HomeController::class, 'storePendaftaran'])->name('store-pendaftaran');
-    
+
     // profile user
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/{id}', [ProfileController::class, 'update'])->name('update-profile');
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
