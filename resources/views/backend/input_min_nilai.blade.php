@@ -58,7 +58,7 @@
                 <tbody>
                     @foreach ($jobs as $job)
                     <tr>
-                        <td rowspan="{{ $job->id == 3 ? '4' : '3' }}">{{ $job->nama_pekerjaan }}</td>
+                        <td rowspan="{{ $job->id == 1 ? '4' : '3' }}">{{ $job->nama_pekerjaan }}</td>
                     </tr>
                     <tr>
                         <td>Nilai Ujian Tertulis</td>
@@ -68,7 +68,7 @@
                         <td>Nilai Ujian Wawancara</td>
                         <td>{{ $job->minimum_wawancara }}</td>
                     </tr>
-                    @if ($job->id == 3)
+                    @if ($job->id == 1)
                     <tr>
                         <td>Nilai Ujian Praktik</td>
                         <td>{{ $job->minimum_praktik }}</td>
