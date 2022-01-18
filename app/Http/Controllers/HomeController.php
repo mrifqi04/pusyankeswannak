@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\Address;
 use App\Models\Lamaran;
 use App\Models\Timeline;
+use Carbon\Carbon;
 use Ramsey\Uuid\Type\Time;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,6 +40,18 @@ class HomeController extends Controller
     public function formPendaftaran($id)
     {
         $job = Job::find($id);
+
+        $timeline = Timeline::find(1);
+        $dateline = $timeline->timeline_end;
+
+        $dt = Carbon::now();
+        $now_date = $dt->toDateString();
+        // dd($now_date, $dateline);
+        if ($now_date > $dateline) {
+            Alert::error("Maaf pendaftaran sudah ditutup");
+
+            return redirect()->back();
+        }
 
         return view('front.form_pendafatarn', compact('job'));
     }
