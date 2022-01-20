@@ -19,7 +19,8 @@
 </div>
 
 <div class="container">
-    <form id="regForm" action="{{ route('store-pendaftaran') }}" class="container row g-3 needs-validated" method="POST" enctype="multipart/form-data">
+    <form id="regForm" action="{{ route('store-pendaftaran') }}" class="container row g-3 needs-validated" method="POST"
+        enctype="multipart/form-data">
         @csrf
         <div class="tab">
             <div class="form-group mb-4 col-md-4">
@@ -80,15 +81,13 @@
             <div class="form-group mb-4">
                 <label for="input-no-hp">JENIS KELAMIN</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="jenis_kelamin1"
-                        value="L" name="jenis_kelamin" />
+                    <input class="form-check-input" type="radio" id="jenis_kelamin1" value="L" name="jenis_kelamin" />
                     <label class="form-check-label" for="jenis_kelamin1">
                         Laki-laki
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="jenis_kelamin2"
-                        value="P" name="jenis_kelamin" />
+                    <input class="form-check-input" type="radio" id="jenis_kelamin2" value="P" name="jenis_kelamin" />
                     <label class="form-check-label" for="jenis_kelamin2">
                         Perempuan
                     </label>
@@ -97,14 +96,16 @@
 
             <div class="form-group mb-4 col-md-4">
                 <label for="input-tanggal-lahir">TANGGAL LAHIR</label>
-                <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir"/>
-                {{-- <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir" value="{{ date('Y-m-d', strtotime(Auth::user()->tanggal_lahir)) }}" /> --}}
+                <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir" />
+                {{-- <input type="date" class="form-control" id="tanggal-lahir" name="tanggal_lahir"
+                    value="{{ date('Y-m-d', strtotime(Auth::user()->tanggal_lahir)) }}" /> --}}
             </div>
 
             <div class="form-group mb-4">
                 <label for="input-no-hp">NO. HP</label>
                 <input name="no_hp" type="text" class="form-control" id="no-hp" placeholder="" />
-                {{-- <input name="no_hp" type="text" class="form-control" id="no-hp" placeholder="" value="{{ Auth::user()->no_hp }}" readonly /> --}}
+                {{-- <input name="no_hp" type="text" class="form-control" id="no-hp" placeholder=""
+                    value="{{ Auth::user()->no_hp }}" readonly /> --}}
             </div>
 
             <label for="input-pendidikan" class="form-label">PENDIDIKAN TERAKHIR</label>
@@ -140,7 +141,8 @@
                 </div>
 
                 <div class="col-md-4">
-                    <input name="rekening" type="text" class="form-control" placeholder="Nomor Rekening" aria-label="" />
+                    <input name="rekening" type="text" class="form-control" placeholder="Nomor Rekening"
+                        aria-label="" />
                 </div>
             </div>
 
@@ -156,73 +158,81 @@
 
         <div class="tab">
             <div class="col-md-12 mb-4">
-
                 <div class="mb-3">
                     <label for="formKTP" class="form-label">Unggah Kartu Tanda Penduduk</label>
-                    <input name="file_ktp" class="form-control" type="file" id="formKTP" accept="application/pdf" required>
-                    <p class="fs-6">Format File PDF</p>
-                </div>
-
-                <div class="mb-3">
-                    <label for="formKK" class="form-label">Unggah Kartu Keluarga</label>
-                    <input name="file_kk" class="form-control" type="file" id="formKK" accept="application/pdf" required>
-                    <p class="fs-6">Format File PDF</p>
-                </div>
-
-                <div class="mb-3">
-                    <label for="form-pas-photo" class="form-label">Unggah Pas Photo 4 x 6</label>
-                    <input name="file_foto" class="form-control" type="file" id="form-pas-photo" accept="image/jpg" required>
-                    <p class="fs-6">Format File JPG</p>
-                </div>
-
-                <div class="mb-3">
-                    <label for="form-ijazah-transkrip" class="form-label">Unggah Ijazah dan Transkrip Nilai</label>
-                    <input name="file_nilai_ijazah" class="form-control" type="file" id="form-ijazah-transkrip" accept="application/pdf"
+                    <input name="file_ktp" class="form-control" type="file" id="formKTP" accept="application/pdf"
                         required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 <div class="mb-3">
+                    <label for="formKK" class="form-label">Unggah Kartu Keluarga</label>
+                    <input name="file_kk" class="form-control" type="file" id="formKK" accept="application/pdf"
+                        required>
+                    <p class="fs-6">Format File PDF</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="form-pas-photo" class="form-label">Unggah Pas Photo 4 x 6</label>
+                    <input name="file_foto" class="form-control" type="file" id="form-pas-photo" accept="image/jpg"
+                        required>
+                    <p class="fs-6">Format File JPG</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="form-ijazah-transkrip" class="form-label">Unggah Ijazah dan Transkrip Nilai</label>
+                    <input name="file_nilai_ijazah" class="form-control" type="file" id="form-ijazah-transkrip"
+                        accept="application/pdf" required>
+                    <p class="fs-6">Format File PDF</p>
+                </div>
+
+                <div class="mb-3">
                     <label for="formNPWP" class="form-label">Unggah NPWP</label>
-                    <input name="file_npwp" class="form-control" type="file" id="formNPWP" accept="application/pdf" required>
+                    <input name="file_npwp" class="form-control" type="file" id="formNPWP" accept="application/pdf"
+                        required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 <div class="mb-3">
                     <label for="formSKCK" class="form-label">Unggah Surat Keterangan Catatan Kepolisian</label>
-                    <input name="file_skck" class="form-control" type="file" id="formSKCK" accept="application/pdf" required>
+                    <input name="file_skck" class="form-control" type="file" id="formSKCK" accept="application/pdf"
+                        required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 <div class="mb-3">
                     <label for="form-surat-kesehatan" class="form-label">Unggah Surat Kesehatan</label>
-                    <input name="file_surat_sehat" class="form-control" type="file" id="form-surat-kesehatan" accept="application/pdf" required>
+                    <input name="file_surat_sehat" class="form-control" type="file" id="form-surat-kesehatan"
+                        accept="application/pdf" required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 <div class="mb-3">
                     <label for="form-sertifikat" class="form-label">Unggah Sertifikat</label>
-                    <input name="file_sertifikat" class="form-control" type="file" id="form-sertifikat" accept="application/pdf">
+                    <input name="file_sertifikat" class="form-control" type="file" id="form-sertifikat"
+                        accept="application/pdf">
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 @if ($job->id == 9)
-                    <div class="mb-3">
-                        <label for="form-SIM" class="form-label">Unggah Surat Izin Mengemudi (Khusus Tenaga Supir)</label>
-                        <input name="file_sim" class="form-control" type="file" id="formSIM" accept="application/pdf">
-                        <p class="fs-6">Format File PDF</p>
-                    </div>                    
+                <div class="mb-3">
+                    <label for="form-SIM" class="form-label">Unggah Surat Izin Mengemudi (Khusus Tenaga Supir)</label>
+                    <input name="file_sim" class="form-control" type="file" id="formSIM" accept="application/pdf">
+                    <p class="fs-6">Format File PDF</p>
+                </div>
                 @endif
 
                 <div class="mb-3">
                     <label for="form-surat-lamaran" class="form-label">Unggah Surat Lamaran</label>
-                    <input name="file_lamaran" class="form-control" type="file" id="form-surat-lamaran" accept="application/pdf" required>
+                    <input name="file_lamaran" class="form-control" type="file" id="form-surat-lamaran"
+                        accept="application/pdf" required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 
                 <div class="mb-3">
                     <label for="form-riwayat-hidup" class="form-label">Unggah Daftar Riwayat Hidup (CV)</label>
-                    <input name="file_cv" class="form-control" type="file" id="form-riwayat-hidup" accept="application/pdf" required>
+                    <input name="file_cv" class="form-control" type="file" id="form-riwayat-hidup"
+                        accept="application/pdf" required>
                     <p class="fs-6">Format File PDF</p>
                 </div>
 

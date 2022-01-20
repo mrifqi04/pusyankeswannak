@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lamaran;
 use App\Models\Status;
+use App\Models\Timeline;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -16,32 +17,42 @@ class ProfileController extends Controller
         $user_id = Auth::user()->id;
 
         $lamaran = Lamaran::where('user_id', $user_id)
-        ->with(['nilai', 'job'])
-        ->first();
+            ->with(['nilai', 'job'])
+            ->with(array('file' => function ($query) {
+                $query->orderBy('id', 'desc');
+                $query->limit(1);
+            }))
+            ->first();        
+
+        $timelines = Timeline::where('id', '!=', 1)->get();
 
         $status = Status::where('user_id', $user_id)->get();
 
-        return view('front.profile', compact('lamaran', 'status'));
+        return view('front.profile', compact(
+            'lamaran',
+            'status',
+            'timelines'
+        ));
     }
 
     public function update(Request $request, $id)
     {
         $user = User::find($id);
         $data = $request->all();
-        
+
         $user->update($data);
-        
-        if ($request->file('profile_picture')) {            
+
+        if ($request->file('profile_picture')) {
             $profile_picture = $request->file('profile_picture');
 
-            $file_name = $id. '_' . $profile_picture->getClientOriginalName();            
+            $file_name = $id . '_' . $profile_picture->getClientOriginalName();
             $user->update([
                 'profile_picture' => $file_name
             ]);
-                        
+
             $profile_picture->move('profile_picture/', $file_name);
         }
-        
+
         Alert::success('Profile berhasil di update');
 
         return redirect('profile');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -50,6 +51,7 @@ class AuthController extends Controller
         $requestData = $request->all();
 
         $user = User::create($requestData);
+        $user->update(['password' => Hash::make($request->password)]);
         $user->role_id = 2;
         $user->save();
 
