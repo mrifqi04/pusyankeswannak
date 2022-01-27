@@ -20,7 +20,7 @@ class LaporanController extends Controller
 
     public function export(Request $request)
     {
-        $time = Carbon::now();
+        $time = Carbon::now('Asia/Phnom_Penh');
         $time = date('Y-m-d', strtotime($time));
 
         $step = $request->step;

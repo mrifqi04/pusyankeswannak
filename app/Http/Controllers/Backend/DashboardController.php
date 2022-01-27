@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Nilai;
 use App\Models\Lamaran;
@@ -50,9 +51,10 @@ class DashboardController extends Controller
 
     public function logs()
     {
-        $logs = Log::leftJoin('users as u', 'logs.admin_id' , '=', 'u.id')
-        ->orderBy('logs.id', 'desc')      
-        ->get();
+        $logs = Log::select(array('logs.created_at', 'logs.aktifitas', 'u.name'))        
+        ->leftJoin('users as u', 'logs.admin_id' , '=', 'u.id')
+        ->orderBy('logs.id', 'desc')
+        ->get();                
 
         return view('backend.admin-activity-log', compact('logs'));
     }

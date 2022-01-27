@@ -56,10 +56,19 @@
                             value="{{ Auth::user()->nik }}">
                     </div>
 
+                    @if ($lamaran)
                     <div class="form-group mb-4">
                         <label for="bidang-lowongan" class="form-label">POSISI</label>
-                        <input type="text" id="posisi" class="form-control" placeholder="" readonly value="">
+                        <input type="text" id="posisi" class="form-control"
+                            placeholder="{{ $lamaran->job->nama_pekerjaan }}" readonly value="">
                     </div>
+                    @else
+                    <div class="form-group mb-4">
+                        <label for="bidang-lowongan" class="form-label">POSISI</label>
+                        <input type="text" id="posisi" class="form-control" placeholder="Belum mendaftar pekerjaan"
+                            readonly value="">
+                    </div>
+                    @endif
 
                     <div class="form-group mb-4">
                         <label for="input-nama">NAMA (Sesuai KTP)</label>
@@ -96,11 +105,23 @@
                             value="{{ Auth::user()->no_hp }}">
                     </div>
 
+                    @if ($lamaran)
                     <div class="form-group mb-4">
                         <label for="input-alamat">ALAMAT</label>
                         <textarea type="text" class="form-control" name="address" id="alamat" placeholder=""
-                            style="height: 100px">{{ Auth::user()->address }}</textarea>
+                            style="height: 100px">
+                        {{ $lamaran->address->jalan }}, {{ $lamaran->address->rt }} / {{ $lamaran->address->rw }}. 
+                        {{ $lamaran->address->kecamatan }}, {{ $lamaran->address->kelurahan }}. 
+                        {{ $lamaran->address->kota }}. {{ $lamaran->address->provinsi }}
+                        </textarea>
                     </div>
+                    @else
+                    <div class="form-group mb-4">
+                        <label for="input-alamat">ALAMAT</label>
+                        <textarea type="text" class="form-control" name="address" id="alamat" placeholder=""
+                            style="height: 100px"></textarea>
+                    </div>
+                    @endif
 
                     <div class="container">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -115,6 +136,7 @@
             <div class="row p-4">
                 <div class="card" style="width: 100rem;">
                     <div class="card-body">
+                        @if ($lamaran)
                         @if ($lamaran->file->file_ktp)
                         <a class="btn btn-primary" target="_blank"
                             href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_ktp) }}">File KTP</a>
@@ -162,6 +184,7 @@
                         <a class="btn btn-primary" target="_blank"
                             href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_cv) }}">File CV</a>
                         @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -189,22 +212,22 @@
                             <td>{{ date("d M Y", strtotime($timeline->timeline_end)) }}</td>
                             <td>
                                 @foreach ($status as $ds)
-                                @if ($ds->step == 'STEP 1' && $key == 0)
+                                @if ($ds->step == 'TAHAP 1' && $key == 0)
                                 {{-- <input type="text" id="nik" class="form-control" placeholder="" readonly
                                     value="{{ $ds->step }} - {{ $ds->status }}"> --}}
                                 {{ $ds->step }} - {{ $ds->status }} <br>
                                 @endif
-                                @if ($ds->step == 'STEP 2' && $key == 1)
+                                @if ($ds->step == 'TAHAP 2' && $key == 1)
                                 {{-- <input type="text" id="nik" class="form-control" placeholder="" readonly
                                     value="{{ $ds->step }} - {{ $ds->status }}"> --}}
                                 {{ $ds->step }} - {{ $ds->status }}
                                 @endif
-                                @if ($ds->step == 'STEP 3' && $key == 2)
+                                @if ($ds->step == 'TAHAP 3' && $key == 2)
                                 {{-- <input type="text" id="nik" class="form-control" placeholder="" readonly
                                     value="{{ $ds->step }} - {{ $ds->status }}"> --}}
                                 {{ $ds->step }} - {{ $ds->status }}
                                 @endif
-                                @if ($ds->step == 'STEP 4' && $key == 3)
+                                @if ($ds->step == 'TAHAP 4' && $key == 3)
                                 {{-- <input type="text" id="nik" class="form-control" placeholder="" readonly
                                     value="{{ $ds->step }} - {{ $ds->status }}"> --}}
                                 {{ $ds->step }} - {{ $ds->status }}

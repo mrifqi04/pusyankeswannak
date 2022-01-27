@@ -610,7 +610,7 @@
                 <a class="navbar-brand fs-6 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
 
-                    Halo, PELAMAR! </a>
+                    Halo, {{ Auth::user()->name }}! </a>
 
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                     <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>

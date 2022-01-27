@@ -41,13 +41,13 @@ class PelamarController extends Controller
         $status = Status::create([
             'lamaran_id' => $accept->id,
             'user_id' => $accept->user_id,
-            'step' => 'STEP 1',
+            'step' => 'TAHAP 1',
             'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'LULUS'
         ]);
 
-        Nilai::create([
-            'lamaran_id' => $accept->id,
+
+        Nilai::where('lamaran_id', $accept->id)->update([            
             'berkas' => 'Lulus',
             'job_id' => $accept->job_id
         ]);
@@ -71,7 +71,7 @@ class PelamarController extends Controller
         $status = Status::create([
             'lamaran_id' => $reject->id,
             'user_id' => $reject->user_id,
-            'step' => 'STEP 1',
+            'step' => 'TAHAP 1',
             'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'GAGAL'
         ]);

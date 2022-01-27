@@ -23,6 +23,7 @@ class Lamaran implements ShouldAutoSize, WithMapping, FromCollection, WithHeadin
         return [
             $lamaran->lamaran->job->nama_pekerjaan,
             $lamaran->lamaran->user->name,
+            $lamaran->lamaran->user->nik,
             $lamaran->lamaran->no_kk,
             $lamaran->lamaran->user->jenis_kelamin,
             date('Y-m-d', strtotime($lamaran->lamaran->user->tanggal_lahir)),
@@ -66,6 +67,7 @@ class Lamaran implements ShouldAutoSize, WithMapping, FromCollection, WithHeadin
         return [
             'Pekerjaan Dilamar',
             'Nama Pelamar',
+            'NIK',
             'No KK',
             'Jenis Kelamin',
             'Tanggal Lahir',

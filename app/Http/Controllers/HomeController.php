@@ -40,13 +40,21 @@ class HomeController extends Controller
     public function formPendaftaran($id)
     {
         $job = Job::find($id);
+        $lamaran = Lamaran::where('user_id', Auth::user()->id)->first();
+
+        if ($lamaran) {
+            Alert::error("Kamu sudah mendaftar di divisi lain");
+
+            return redirect()->back();
+        }
+
 
         $timeline = Timeline::find(1);
-        $dateline = $timeline->timeline_end;
+        $dateline = $timeline->timeline_end;        
 
-        $dt = Carbon::now();
+        $dt = Carbon::now('Asia/Phnom_Penh');
         $now_date = $dt->toDateString();
-        // dd($now_date, $dateline);
+        
         if ($now_date > $dateline) {
             Alert::error("Maaf pendaftaran sudah ditutup");
 
@@ -152,7 +160,7 @@ class HomeController extends Controller
         Status::create([
             'lamaran_id' => $lamaran->id,
             'user_id' => Auth::user()->id,
-            'step' => 'STEP 1',
+            'step' => 'TAHAP 1',
             'ket' => 'PENYORTIRAN BERKAS',
             'status' => 'PROSES'
         ]);

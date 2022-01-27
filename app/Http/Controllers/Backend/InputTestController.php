@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\Lamaran;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class InputTestController extends Controller
@@ -36,25 +37,26 @@ class InputTestController extends Controller
         $min_nilai = $job->minimum_tertulis;
         $lamaran = Nilai::where('lamaran_id', $id)->first();
         $step_nilai = $lamaran->ujian_tertulis;
-        
+
         if (!$step_nilai) {
             if ($nilai >= $min_nilai) {
                 $status = 'LULUS';
             } else if ($nilai < $min_nilai) {
                 $status = 'GAGAL';
-            }                    
+            }
             Status::create([
                 'lamaran_id' => $id,
                 'user_id' => $findlamar->user_id,
-                'step' => 'STEP 2',
+                'step' => 'TAHAP 2',
                 'ket' => 'UJIAN TERTULIS',
                 'status' => $status
-            ]);            
+            ]);
         } else {
             if ($nilai >= $min_nilai) {
-                Status::where('STEP', 'STEP 2')->update(['status' => 'LULUS']);
+                Status::where('STEP', 'TAHAP 2')->update(['status' => 'LULUS']);
             } else if ($nilai < $min_nilai) {
-                Status::where('STEP', 'STEP 2')->update(['status' => 'GAGAL']);
+                Status::where('STEP', 'TAHAP 2')->update(['status' => 'GAGAL']);
+                $findlamar->update(['status' => 'Gagal']);
             }
         }
 
@@ -69,13 +71,13 @@ class InputTestController extends Controller
 
     public function inputTestWawancara()
     {
-        $lamaran = Lamaran::with('user')
-            ->with('job')
-            ->with('nilai')
-            ->where('status', 'Accepted')
-            ->orWhere('status', 'Lulus')
-            ->get();
 
+        $lamaran = Status::where('ket', 'UJIAN TERTULIS')
+            ->where('status', 'LULUS')
+            ->with(array('lamaran' => function ($query) {
+                $query->with(['user', 'nilai']);
+            }))
+            ->get();        
         return view('backend.test_wawancara.input_test_wawancara', compact('lamaran'));
     }
 
@@ -102,19 +104,20 @@ class InputTestController extends Controller
             Status::create([
                 'lamaran_id' => $id,
                 'user_id' => $findlamar->user_id,
-                'step' => 'STEP 3',
+                'step' => 'TAHAP 3',
                 'ket' => 'UJIAN WAWANCARA',
                 'status' => $status
             ]);
         } else {
             if ($nilai >= $min_nilai) {
-                Status::where('STEP', 'STEP 3')->update(['status' => 'LULUS']);                
+                Status::where('STEP', 'TAHAP 3')->update(['status' => 'LULUS']);
             } else if ($nilai < $min_nilai) {
-                Status::where('STEP', 'STEP 3')->update(['status' => 'GAGAL']);
+                Status::where('STEP', 'TAHAP 3')->update(['status' => 'GAGAL']);
+                $findlamar->update(['status' => 'Gagal']);
             }
         }
 
-        if ($findlamar->job_id != 3 && $kuota <= $job->kuota) {
+        if ($findlamar->job_id != 1 && $kuota <= $job->kuota) {
             $findlamar->update(['status' => 'Lulus']);
         }
 
@@ -129,12 +132,15 @@ class InputTestController extends Controller
 
     public function inputTestPraktik()
     {
-        $lamaran = Lamaran::with('user')
-            ->with('job')
-            ->with('nilai')
-            ->where('status', 'Accepted')
-            ->where('job_id', 3)
+        $lamaran = Status::where('ket', 'UJIAN WAWANCARA')
+            ->where('status', 'LULUS')
+            ->with(array('lamaran' => function ($query) {
+                $query->where('job_id', 1);
+                $query->with('user');
+            }))
             ->get();
+
+        // dd($lamaran);
 
         return view('backend.test_praktik.input_test_praktik', compact('lamaran'));
     }
@@ -155,7 +161,7 @@ class InputTestController extends Controller
 
         $get_kuota = Lamaran::where('job_id', $job->id)->get();
         $kuota = count($get_kuota);
-        
+
         if (!$step_nilai) {
             if ($nilai >= $min_nilai) {
                 $status = 'LULUS';
@@ -166,15 +172,15 @@ class InputTestController extends Controller
             Status::create([
                 'lamaran_id' => $id,
                 'user_id' => $findlamar->user_id,
-                'step' => 'STEP 4',
+                'step' => 'TAHAP 4',
                 'ket' => 'UJIAN PRAKTIK',
                 'status' => $status
             ]);
         } else {
             if ($nilai >= $min_nilai) {
-                Status::where('STEP', 'STEP 4')->update(['status' => 'LULUS']);                
+                Status::where('STEP', 'TAHAP 4')->update(['status' => 'LULUS']);
             } else if ($nilai < $min_nilai) {
-                Status::where('STEP', 'STEP 4')->update(['status' => 'GAGAL']);
+                Status::where('STEP', 'TAHAP 4')->update(['status' => 'GAGAL']);
             }
         }
 

@@ -21,26 +21,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($lamaran as $key => $dl)
+                            @foreach ($lamaran as $key => $dl)                            
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $dl->user->name }}</td>
-                                <td>{{ $dl->job->nama_pekerjaan }}</td>
-                                <td>{{ $dl->status }}</td>
+                                <td>{{ $dl->lamaran[0]->user->name }}</td>
+                                <td>{{ $dl->lamaran[0]->job->nama_pekerjaan }}</td>
+                                <td>{{ $dl->lamaran[0]->status }}</td>
                                 <td align="center">
                                     @php
-                                        if ($dl->nilai) {                                            
-                                            $nilai = $dl->nilai->wawancara;
-                                        } else {
-                                            $nilai = '';
-                                        }
+                                    if ($dl->lamaran[0]->nilai) {
+                                    $nilai = $dl->lamaran[0]->nilai->wawancara;
+                                    } else {
+                                    $nilai = '';
+                                    }
                                     @endphp
-                                    <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name" class="form-control" onkeydown="input(this)">
+                                    <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name"
+                                        class="form-control" onkeydown="input(this)">
                                     <script>
                                         function input(ele) {
                                             if(event.key === 'Enter') {
                                                 var data = ele.value
-                                                var id = '{{ $dl->id }}'
+                                                var id = '{{ $dl->lamaran[0]->id }}'
                                                 $.ajax({
                                                     type: "post",
                                                     url: '{{ route('store-tes-wawancara') }}',

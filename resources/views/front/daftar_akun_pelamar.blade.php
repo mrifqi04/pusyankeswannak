@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </form>
-                <p class="text-center mt-3 text-secondary">Sudah memiliki akun? <a href="masuk-akun-pelamar.php">
+                <p class="text-center mt-3 text-secondary">Sudah memiliki akun? <a href="{{ route('user-login') }}">
                         Masuk</a></p>
             </div>
         </div>

@@ -6,6 +6,7 @@ use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,8 @@ class AuthController extends Controller
                 'password' => 'required'
             ]);
 
+
+
             $credentials = $request->only('nik', 'password');
 
             if (Auth::attempt($credentials)) {
@@ -33,6 +36,7 @@ class AuthController extends Controller
                     return redirect('/');
                 }
             } else {
+                Alert::error('NIK atau password salah');
                 return redirect()->back();
             }
         } catch (Exception $error) {
@@ -47,6 +51,13 @@ class AuthController extends Controller
 
     public function storeRegister(Request $request)
     {
+        $userValidate = User::where('email', $request->email)->first();
+
+        if ($userValidate) {
+            Alert::error("Email sudah terdaftar");
+
+            return redirect()->back();
+        }
         // dd($request);
         $requestData = $request->all();
 

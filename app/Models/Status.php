@@ -16,4 +16,9 @@ class Status extends Model
         'status',
         'ket'
     ];
+
+    function lamaran()
+    {
+        return $this->hasMany(Lamaran::class, 'id', 'lamaran_id');
+    }
 }
