@@ -22,20 +22,34 @@
                         </thead>
                         <tbody>
                             @foreach ($lamaran as $key => $dl)
+                            @php
+                            if ($dl->nilai) {
+                            $nilai = $dl->nilai->ujian_tertulis;
+                            } else {
+                            $nilai = '';
+                            }
+                            $min_nilai = $dl->job->minimum_tertulis;
+
+                            if($nilai >= $min_nilai) {
+                                $status = 'Lulus Ujian Tertulis';
+                            }  else if($nilai == 0) {
+                                $status = "";
+                            }
+                            else if($nilai <= $min_nilai) {
+                                $status = 'Gagal Ujian Tertulis';
+                            }
+
+
+                            @endphp
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $dl->user->name }}</td>
                                 <td>{{ $dl->job->nama_pekerjaan }}</td>
-                                <td>{{ $dl->status }}</td>
+                                <td>{{ $status }}</td>
                                 <td align="center">
-                                    @php
-                                        if ($dl->nilai) {                                            
-                                            $nilai = $dl->nilai->ujian_tertulis;
-                                        } else {
-                                            $nilai = '';
-                                        }
-                                    @endphp
-                                    <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name" class="form-control" onkeydown="input(this)">
+
+                                    <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name"
+                                        class="form-control" onkeydown="input(this)">
                                     <script>
                                         function input(ele) {
                                             if(event.key === 'Enter') {
@@ -54,7 +68,9 @@
                                                             'Updated',
                                                             'Nilai berhasil ditambahkan',
                                                             'success'
-                                                            )
+                                                            ).then(function() {
+                                                                location.reload()
+                                                            })
                                                     },
                                                 });      
                                             }

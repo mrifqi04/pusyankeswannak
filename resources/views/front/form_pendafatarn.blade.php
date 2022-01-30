@@ -132,19 +132,7 @@
             <div class="form-group mb-4 col-md-4">
                 <label for="input-tanggal-skck">TANGGAL SKCK</label>
                 <input type="date" class="form-control" id="tanggal-skck" name="tanggal_skck" value="" />
-            </div>
-
-            <div class="form-group row mb-4">
-                <label for="input-alamat">REKENING (optional)</label>
-                <div class="col-md-2">
-                    <input name="bank" type="text" class="form-control" placeholder="Nama Bank" aria-label="" />
-                </div>
-
-                <div class="col-md-4">
-                    <input name="rekening" type="text" class="form-control" placeholder="Nomor Rekening"
-                        aria-label="" />
-                </div>
-            </div>
+            </div>           
 
             <label for="input-instansi-surkes" class="form-label">INSTANSI SURAT KESEHATAN</label>
             <div class="mb-4">

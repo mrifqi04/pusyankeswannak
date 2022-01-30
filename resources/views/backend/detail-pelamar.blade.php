@@ -108,7 +108,7 @@
                                     <tr>
                                         <td>Jenis Kelamin</td>
                                         <td>:</td>
-                                        <td>{{ $lamaran->user->jenis_kelamin == 'L' ?  "Laki-laki" : 'Perempuan' }}</td>
+                                        <td>{{ $lamaran->user->jenis_kelamin == 'L' ? "Laki-laki" : 'Perempuan' }}</td>
                                     </tr>
                                     <tr>
                                         <td>Pendidikan</td>
@@ -119,12 +119,6 @@
                                         <td>NPWP</td>
                                         <td>:</td>
                                         <td>{{ $lamaran->npwp }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bank</td>
-                                        <td>:</td>
-                                        <td>{{ $lamaran->bank }}</td>
-                                        <td>({{ $lamaran->rekening }})</td>
                                     </tr>
                                     <tr>
                                         <td>Nomer HP</td>
@@ -172,41 +166,90 @@
             </div>
             <h2><strong> {{ $lamaran->job->nama_pekerjaan }} </strong></h2>
             @if ($lamaran->status == 'Proses')
-                <div class="col-xs-12 divider text-center">
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <form action="{{ route('accept-pelamar', $lamaran->id) }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-success btn-block mt-3">Accept
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <form action="{{ route('reject-pelamar', $lamaran->id) }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-block mt-3">Reject
-                            </button>
-                        </form>
-                    </div>              
-                </div>                
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <form action="{{ route('accept-pelamar', $lamaran->id) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-block mt-3" onclick="onConfirm()">Accept
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <button type="submit" class="btn btn-danger btn-block mt-3" onclick="onReject()">Reject</button>
+                </div>
+            </div>
             @endif
         </div>
 
-        <div class="col-md-12">                        
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_ktp) }}">File KTP</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_kk) }}">File KK</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_foto) }}">File Foto</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_nilai_ijazah) }}">File Nilai Ijazah</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_npwp) }}">File NPWP</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_skck) }}">File SKCK</a>
+        <div class="col-md-12">
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_ktp) }}">File KTP</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_kk) }}">File KK</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_foto) }}">File Foto</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_nilai_ijazah) }}">File Nilai Ijazah</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_npwp) }}">File NPWP</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_skck) }}">File SKCK</a>
             @if ($lamaran->file->file_sim)
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_sim) }}">File SIM</a>                
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_sim) }}">File SIM</a>
             @endif
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_surat_sehat) }}">File Surat Sehat</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_sertifikat) }}">File Sertifikat</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_lamaran) }}">File Lamaran</a>
-            <a class="btn btn-primary" target="_blank" href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_cv) }}">File CV</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_surat_sehat) }}">File Surat Sehat</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_sertifikat) }}">File Sertifikat</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_lamaran) }}">File Lamaran</a>
+            <a class="btn btn-primary" target="_blank"
+                href="{{ URL::asset('file_pelamar/' . $lamaran->file->file_cv) }}">File CV</a>
         </div>
     </div>
 </div>
 
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function onConfirm() {
+        if(confirm('Apa anda yakin ingin menerima peserta ini?')){         
+         return
+        }else{         
+         event.preventDefault()            
+        }
+    }
+    function onReject() {
+        if(confirm('Apa anda yakin ingin menolak peserta ini?')){                     
+            
+            let text = prompt("Masukan alasan:");
+            if (text == null || text == "") {
+                return false
+            } else {         
+                $.ajax({
+                    type: "post",
+                    url: '{{ route('reject-pelamar', $lamaran->id) }}',
+                    data: {
+                        text                        
+                    },
+                    dataType: 'json',
+                    success: function() {
+                        Swal.fire(
+                            'Rejected',
+                            'Pelamar berhasil di tolak',
+                            'error'
+                            ).then(function() {
+                                location.reload()
+                            })
+                    },
+                })               
+            }
+        }else{         
+         event.preventDefault()            
+        }
+    }
+</script>
 @endsection

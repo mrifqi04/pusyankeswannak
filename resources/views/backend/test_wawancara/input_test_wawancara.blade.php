@@ -21,20 +21,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($lamaran as $key => $dl)                            
+                            @foreach ($lamaran as $key => $dl)     
+                            @php
+                            if ($dl->lamaran[0]->nilai) {
+                            $nilai = $dl->lamaran[0]->nilai->wawancara;
+                            } else {
+                            $nilai = '';
+                            }
+
+                            $min_nilai = $dl->lamaran[0]->job->minimum_wawancara;
+
+                            if($nilai >= $min_nilai) {
+                                $status = 'Lulus Ujian Wawancara';
+                            }  else if($nilai == 0) {
+                                $status = "";
+                            }
+                            else if($nilai <= $min_nilai) {
+                                $status = 'Gagal Ujian Wawancara';
+                            }
+                            @endphp                      
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $dl->lamaran[0]->user->name }}</td>
                                 <td>{{ $dl->lamaran[0]->job->nama_pekerjaan }}</td>
-                                <td>{{ $dl->lamaran[0]->status }}</td>
+                                <td>{{ $status }}</td>
                                 <td align="center">
-                                    @php
-                                    if ($dl->lamaran[0]->nilai) {
-                                    $nilai = $dl->lamaran[0]->nilai->wawancara;
-                                    } else {
-                                    $nilai = '';
-                                    }
-                                    @endphp
+                                    
                                     <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name"
                                         class="form-control" onkeydown="input(this)">
                                     <script>
@@ -55,7 +67,9 @@
                                                             'Updated',
                                                             'Nilai berhasil ditambahkan',
                                                             'success'
-                                                            )
+                                                            ).then(function() {
+                                                                location.reload()
+                                                            })
                                                     },
                                                 });      
                                             }

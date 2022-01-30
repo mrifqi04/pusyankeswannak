@@ -35,7 +35,7 @@
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Petugas Kesehatan Satwa</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $job->nama_pekerjaan }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

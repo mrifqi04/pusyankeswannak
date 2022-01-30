@@ -29,7 +29,7 @@
                                 <td>Peserta-{{ $dl->id }}</td>
                                 <td>{{ $dl->user->name }}</td>
                                 <td>{{ $dl->job->nama_pekerjaan }}</td>
-                                <td>{{ $dl->status }}</td>
+                                <td>{{ $dl->status == 'Rejected' ? 'Gagal Selesi Berkas' : ($dl->status == 'Lulus' ? 'Peserta Lulus' : ($dl->status == 'Accepted' ? 'Lulus Selesi Berkas' : 'Menunggu Review')) }}</td>
                                 <td align="center">                                    
                                     <a href="{{ route('detail-pelamar', $dl->id) }}" class="btn btn-success">Detail</a>                                    
                                 </td>

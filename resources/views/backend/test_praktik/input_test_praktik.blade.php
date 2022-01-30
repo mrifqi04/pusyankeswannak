@@ -23,19 +23,26 @@
                         <tbody>
                             @foreach ($lamaran as $key => $dl)
                             @if (@$dl->lamaran[0])
-                            <tr>
+                            @php
+                            if ($dl->lamaran[0]->nilai) {
+                            $nilai = $dl->lamaran[0]->nilai->praktik;
+                            } else {
+                            $nilai = '';
+                            }
+                            $min_nilai = $dl->lamaran[0]->job->minimum_praktik;
+
+                            if($nilai >= $min_nilai) {
+                            $status = 'Lulus Ujian Praktik';
+                            } else if($nilai == 0) {
+                            $status = "";
+                            }
+                            else if($nilai <= $min_nilai) { $status='Gagal Ujian Praktik' ; } @endphp <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $dl->lamaran[0]->user->name }}</td>
                                 <td>{{ $dl->lamaran[0]->job->nama_pekerjaan }}</td>
-                                <td>{{ $dl->lamaran[0]->status }}</td>
+                                <td>{{ $status }}</td>
                                 <td align="center">
-                                    @php
-                                    if ($dl->lamaran[0]->nilai) {
-                                    $nilai = $dl->lamaran[0]->nilai->praktik;
-                                    } else {
-                                    $nilai = '';
-                                    }
-                                    @endphp
+
                                     <input type="text" value="{{ $nilai ? $nilai : '0' }}" name="name" id="name"
                                         class="form-control" onkeydown="input(this)">
                                     <script>
@@ -56,16 +63,18 @@
                                                                     'Updated',
                                                                     'Nilai berhasil ditambahkan',
                                                                     'success'
-                                                                    )
+                                                                    ).then(function() {
+                                                                        location.reload()
+                                                                    })
                                                             },
                                                         });      
                                                     }
                                                 }
                                     </script>
                                 </td>
-                            </tr>
-                            @endif
-                            @endforeach
+                                </tr>
+                                @endif
+                                @endforeach
                         </tbody>
                     </table>
                 </div>

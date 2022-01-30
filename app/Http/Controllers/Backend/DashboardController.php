@@ -13,8 +13,9 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $logs = Log::leftJoin('users as u', 'logs.admin_id' , '=', 'u.id')
-        ->orderBy('logs.id', 'desc')      
+        $logs = Log::select(array('logs.created_at', 'logs.aktifitas', 'u.name'))        
+        ->leftJoin('users as u', 'logs.admin_id' , '=', 'u.id')
+        ->orderBy('logs.id', 'asc')
         ->get();        
 
         $average_pks = Lamaran::average(1);        
@@ -51,9 +52,9 @@ class DashboardController extends Controller
 
     public function logs()
     {
-        $logs = Log::select(array('logs.created_at', 'logs.aktifitas', 'u.name'))        
+        $logs = Log::select(array('logs.created_at', 'logs.aktifitas', 'logs.id', 'u.name'))        
         ->leftJoin('users as u', 'logs.admin_id' , '=', 'u.id')
-        ->orderBy('logs.id', 'desc')
+        ->orderBy('logs.id', 'asc')
         ->get();                
 
         return view('backend.admin-activity-log', compact('logs'));

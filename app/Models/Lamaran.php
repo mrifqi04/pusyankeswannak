@@ -19,11 +19,10 @@ class Lamaran extends Model
         'no_hp',
         'pendidikan',
         'npwp',
-        'tanggal_skck',
-        'bank',
-        'rekening',
+        'tanggal_skck',        
         'surat_sehat',
-        'status'
+        'status',
+        'reason'
     ];
 
     function user()

@@ -88,8 +88,8 @@
                                 <tbody>
                                     @foreach ($logs as $log)
                                     <tr>
-                                        <td>{{ $log->created_at }}</td>
-                                        <td>{{ $log->user->name }}</td>
+                                        <td>{{ date('d M Y : h:i a', strtotime($log->created_at)) }}</td>
+                                        <td>{{ $log->name }}</td>
                                         <td>{{ $log->aktifitas }}</td>
                                     </tr>
                                     @endforeach

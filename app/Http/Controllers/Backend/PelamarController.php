@@ -62,11 +62,15 @@ class PelamarController extends Controller
         return redirect('data-pelamar');
     }
 
-    public function reject($id)
-    {
+    public function reject(Request $request, $id)
+    {        
         $reject = Lamaran::find($id);
-
-        $reject->update(['status' => 'Rejected']);
+        $reason = $request->text;
+        
+        $reject->update([
+            'status' => 'Rejected',
+            'reason' => $reason,
+        ]);
 
         $status = Status::create([
             'lamaran_id' => $reject->id,
@@ -76,8 +80,7 @@ class PelamarController extends Controller
             'status' => 'GAGAL'
         ]);
 
-        Nilai::create([
-            'lamaran_id' => $reject->id,
+        Nilai::where('lamaran_id', $reject->id)->update([            
             'berkas' => 'Gagal',
             'job_id' => $reject->job_id
         ]);
@@ -87,8 +90,8 @@ class PelamarController extends Controller
             'aktifitas' => "Menolak berkas Peserta-" . $reject->id
         ]);
 
-        Alert::success('Ditolak', 'Pelamar berhasil ditolak');
+        // Alert::success('Ditolak', 'Pelamar berhasil ditolak');
 
-        return redirect('data-pelamar');
+        // return redirect('data-pelamar');
     }
 }

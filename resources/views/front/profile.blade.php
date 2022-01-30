@@ -200,6 +200,7 @@
                             <th>TANGGAL MULAI</th>
                             <th>TANGGAL AKHIR</th>
                             <th>STATUS</th>
+                            <th>KETERANGAN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -233,6 +234,11 @@
                                 {{ $ds->step }} - {{ $ds->status }}
                                 @endif
                                 @endforeach
+                            </td>
+                            <td>
+                                @if ($key == 0)
+                                {{ @$lamaran->reason }}
+                                @endif
                             </td>
                         </tr>
                         @endif

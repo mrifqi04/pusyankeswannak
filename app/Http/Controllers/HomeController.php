@@ -73,9 +73,7 @@ class HomeController extends Controller
             'no_kk' => $request->no_kk,                        
             'pendidikan' => $request->pendidikan,
             'npwp' => $request->npwp,
-            'tanggal_skck' => $request->tanggal_skck,
-            'bank' => $request->bank,
-            'rekening' => $request->rekening,
+            'tanggal_skck' => $request->tanggal_skck,            
             'surat_sehat' => $request->surat_sehat,
             'status' => 'Proses'
         ]);

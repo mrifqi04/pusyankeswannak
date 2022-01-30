@@ -13,15 +13,15 @@
                     <table class="table table-striped table-bordered" id="sortTable">
                         <thead>
                             <tr>
-                                <th>TIMESTAMP</th>
-                                <th>NAMA</th>                                
+                                <th>TIMESTAMP</th>                            
+                                <th>NAMA</th>                                                     
                                 <th>AKTIVITAS</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($logs as $log)
                             <tr>
-                                <td>{{ date('d M Y : h:i a', strtotime($log->created_at)) }}</td>                                
+                                <td>{{ date('d M Y : h:i a', strtotime($log->created_at)) }}</td>                                                                
                                 <td>{{ $log->name }}</td>
                                 <td>{{ $log->aktifitas }}</td>                                
                             </tr>
